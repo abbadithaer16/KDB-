@@ -1,0 +1,188 @@
+{
+  "bracelet_macro": {
+    "w": 2000,
+    "h": 1400,
+    "widths": [
+      480,
+      800,
+      1200,
+      1800,
+      2000
+    ],
+    "lqip": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAAAQBACdASoYABEAPu1qrlCppaQiqAqpMB2JZwDLaA93xElckFPvZlmpQAD+nvl787RTjRHBaioT8t8DckEAAAAA",
+    "source": "render"
+  },
+  "bracelet_silk": {
+    "w": 2400,
+    "h": 1500,
+    "widths": [
+      480,
+      800,
+      1200,
+      1800,
+      2400
+    ],
+    "lqip": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADQAwCdASoYAA8APu1mqk4ppaOiMAgBMB2JZwDA3CHfiUXVfc63kQAA/uP9JIl+UpAWfWAiNOxKg1wA",
+    "source": "render"
+  },
+  "campaign": {
+    "w": 2400,
+    "h": 1350,
+    "widths": [
+      480,
+      800,
+      1200,
+      1800,
+      2400
+    ],
+    "lqip": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAAAwAwCdASoYAA4APu1iqk2ppaQiMAgBMB2JZwAAW7/jQBTAAP7wyIu7txKvTnNvpbkW0/Mj5dpYNC5N6AA=",
+    "source": "render"
+  },
+  "campaign_portrait": {
+    "w": 1080,
+    "h": 1920,
+    "widths": [
+      480,
+      800,
+      1080
+    ],
+    "lqip": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAABwBQCdASoYACsAPuFeo02opSOiMA1REBwJZQDMHCHf47WK2MIwLKp9aBAa5RhAEpNZrNgAAP7rz134ApDgjKlUfuxkn6UOc+7bn5QbkuPNCbjmYJN1eHSZNPRUuaFHigAAAA==",
+    "source": "render"
+  },
+  "card_necklace": {
+    "w": 1200,
+    "h": 1500,
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "lqip": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAwCdASoYAB4APu1sq1EppaOiqAqpMB2JaQDQGBbJIMj7+EmzbxhAAP7wWUPe/IDTy8MhMPcHXgJig3EM2z2AAAA=",
+    "source": "render"
+  },
+  "card_ring": {
+    "w": 1200,
+    "h": 1500,
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "lqip": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAAAQAwCdASoYAB4APu1ur1KppiQnqAgBMB2JZwDL4BanFAAA/u/qbpv+ODX9Bdf96BYAgLkXW7XemQfV7wtIJlRXGqAAAA==",
+    "source": "render"
+  },
+  "finale": {
+    "w": 2400,
+    "h": 1350,
+    "widths": [
+      480,
+      800,
+      1200,
+      1800,
+      2400
+    ],
+    "lqip": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADwAgCdASoYAA4APu1iqk2ppaQiMAgBMB2JZwAAetCOQAD+8D7At/EQ9ghCePuopQb0CHX9RcgAAA==",
+    "source": "render"
+  },
+  "finale_portrait": {
+    "w": 1080,
+    "h": 1920,
+    "widths": [
+      480,
+      800,
+      1080
+    ],
+    "lqip": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAACQBACdASoYACsAPulgpU2pJaOiNVgIASAdCWcAzBxFbWXbH5EsDUJCjqiZNYAA/vdxTk92T4tuN0rTJObXW07n1pxL6VSH5Sm7KM4mPujrzeZIXHP+ECIMtwN4YHeVQAA=",
+    "source": "render"
+  },
+  "macro_chain": {
+    "w": 1600,
+    "h": 2000,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "lqip": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAACwBACdASoYAB4APtlgpE2oJiOiN/qoAQAbCWcAzFgh32Ir6hSDHrHCD/HEiu0YAP7yoZnWJDnmD+kFac+//4RqcNL4fysW9tAZloYtJPTv1AAA",
+    "source": "render"
+  },
+  "macro_diamond": {
+    "w": 1600,
+    "h": 2000,
+    "widths": [
+      480,
+      800,
+      1200,
+      1600
+    ],
+    "lqip": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAACQBQCdASoYAB4APulkq02pJaQiMBgMASAdCWUAxNhX7+CU5wKhPSpDsKdsyJu5Pu/q/jmDMAD++lqqeuaL/8JCobHxF7odM47JlMylznaE9S5FOA/5GZ5MHYktDjv/ubZv3MvxHSDAAA==",
+    "source": "render"
+  },
+  "worn": {
+    "w": 1200,
+    "h": 1600,
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "lqip": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACQBACdASoYACAAPuVipE2pJaOiMAwBIByJaQDM0B6R/ydyR6o+UVFJTelobQAA/vV74LebRMxp8jODWjYDoljRulcxOXqhKBtBAAAA",
+    "source": "render"
+  },
+  "client_bracelet_gold": {
+    "w": 1200,
+    "h": 1495,
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "lqip": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADQBACdASoYAB4APt1Wp02opKOiN/qoARAbiWcAxNhXb972alUscngc9yyAZdeXUAD+9WUQ3qx95+Ya3sjAzVXw+CngMtAPUJ95f25JTQ6vAewJsI7k7uNwczL4AA==",
+    "source": "client"
+  },
+  "client_bracelet_white": {
+    "w": 1200,
+    "h": 1205,
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "lqip": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAABQBQCdASoYABgAPu1oq1AppaOiqA1RMB2JZwAALnYIalfqn4JRKHRMGCdRB1/LAd11eAAA/ujbi1o/nm5nd634iUGB9ocHBWjpC1KD4M9/xtxFTCGOWkCU4On4O0Ra8KkWpgvRUMDVmoozbAAAAA==",
+    "source": "client"
+  },
+  "client_pendant": {
+    "w": 1200,
+    "h": 1191,
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "lqip": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAABwBQCdASoYABgAPu1sq1EppaOiqAqpMB2JYgCdMyGBf37zdV29knrm2ZUbMl/sswpKoW2QAP5nMDgziM7SznK87seKK5awNH9Mp7QbJUyDaflsSYTWL8vZbK0Ydb3PZeKqr2Krwkqsx/iwC/4qHIiJZ8ubkxpNWwaLp8AA",
+    "source": "client"
+  },
+  "client_ring_pear": {
+    "w": 1080,
+    "h": 1056,
+    "widths": [
+      480,
+      800,
+      1080
+    ],
+    "lqip": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAQBQCdASoYABcAPu1cqE2ppKOiN/VYATAdiWkAAC32WXmpfX6at09Yl++elAmU1OboAP70JO0TQgPVXcYO1SQbgrRUn5ozhjl9oJbU4cfNZfjAkoO+wY87AntUQgAA",
+    "source": "client"
+  },
+  "client_ring_round": {
+    "w": 1200,
+    "h": 1191,
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "lqip": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAACwBACdASoYABgAPuFUpU2opCOiN/qoARAcCWcAz2Qh3894KPCbMrY6vzDsLnM4AP7wyBy6dfUBeYvFx3ehFWkmbFXBuL/SOXZM7xUEmQBAAA==",
+    "source": "client"
+  }
+}

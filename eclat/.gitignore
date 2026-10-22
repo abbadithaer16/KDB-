@@ -1,0 +1,10 @@
+node_modules
+dist
+assets-src/stills/draft_*
+*.log
+dist-preview
+
+# source renders, HDR masters and backups — not needed by the running site
+assets-src/
+*.tsbuildinfo
+__pycache__/

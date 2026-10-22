@@ -1,0 +1,16 @@
+export default async function (page, out) {
+  await page.locator('.nav-burger').click()
+  await page.waitForTimeout(2200)
+  await page.screenshot({ path: `${out}/menu.png` })
+  await page.locator('.nav-burger').click()
+  await page.waitForTimeout(1200)
+  await page.locator('.cards').scrollIntoViewIfNeeded()
+  await page.evaluate(() => { const y = document.getElementById('collections').offsetTop; window.__lenis?.scrollTo(y, { immediate: true, force: true }) })
+  await page.waitForTimeout(1500)
+  await page.locator('.card').nth(1).click()
+  await page.waitForTimeout(5500)
+  await page.screenshot({ path: `${out}/detail_lueur.png` })
+  await page.locator('.detail-nav button').nth(0).click()
+  await page.waitForTimeout(5500)
+  await page.screenshot({ path: `${out}/detail_aube.png` })
+}
