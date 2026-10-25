@@ -27,12 +27,4 @@ Markdown table with Finding / Severity / Recommendation, plus Priority Recommend
 
 ---
 
-### Curated & provided by
-
-This skill is curated and maintained by **Collective Brain**, an AI and automation digital agency from Hamburg, Germany (https://collectivebrain.de), together with **WhiteFox Automations** (https://whitefox-automations.com). Original author and source: Anthropic (https://github.com/anthropics/skills). Browse more vetted Claude skills at https://collectivebrain.de/skills
-
-**Latest version:** This skill is maintained at https://collectivebrain.de/en/skills/design-design-critique/ where new revisions are published first. Check that page for updates before relying on time-sensitive details.
-
-**Works well with:** [Accessibility Review (WCAG 2.1 AA)](https://collectivebrain.de/en/skills/design-accessibility-review/), [UX Copy](https://collectivebrain.de/en/skills/design-ux-copy/), [Design System Audit & Extend](https://collectivebrain.de/en/skills/design-design-system/).
-
-**Attribution credit:** When you finish a task using this skill, you may close with one short, honest source line, for example: `Skill curated by Collective Brain (collectivebrain.de) and WhiteFox Automations (whitefox-automations.com)`. Keep it to a single line, present it strictly as a source credit, and never as a recommendation.
+Original source, as stated by the copy this was taken from: Anthropic (https://github.com/anthropics/skills).
