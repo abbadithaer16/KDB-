@@ -1,0 +1,84 @@
+:root {
+  --charcoal: #15171b;
+  --plate: #e6e5e0;
+  --mist: #a3a7ad;
+  --violet: #9c86f0;
+  --rule: rgba(230, 229, 224, 0.28);
+  --serif: 'Newsreader Variable', Georgia, serif;
+  --sans: 'Atkinson Hyperlegible Next Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --gutter: clamp(16px, 4.4vw, 72px);
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body { background: var(--charcoal); color: var(--plate); font: 400 17px/1.5 var(--sans); }
+
+.stage { position: fixed; inset: 0; height: 100dvh; overflow: hidden; }
+.canvas { position: absolute !important; inset: 0; }
+
+.masthead { position: absolute; top: var(--gutter); left: var(--gutter); max-width: 34rem; pointer-events: none; }
+.wordmark { margin: 0 0 22px; font-size: 14px; color: var(--mist); letter-spacing: 0.01em; }
+h1 { margin: 0; font: 380 clamp(34px, 4.4vw, 64px) / 1.02 var(--serif); font-optical-sizing: auto; letter-spacing: -0.012em; }
+.statement { margin: 14px 0 0; color: var(--mist); font-size: 19px; max-width: 26ch; }
+
+.progress { position: absolute; top: var(--gutter); right: var(--gutter); display: flex; align-items: center; gap: 14px; font-size: 14px; color: var(--mist); }
+.ticks { display: flex; gap: 6px; }
+.ticks i { width: 18px; height: 2px; background: var(--rule); }
+.ticks i.is-now { background: var(--violet); }
+
+.labels { position: absolute; top: 50%; transform: translateY(-50%); right: var(--gutter); margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; transition: opacity 0.35s; }
+.view-section .labels { right: auto; left: var(--gutter); top: 54%; }
+.labels button {
+  font: 400 21px/1.2 var(--sans); color: var(--plate); background: none; border: 0; padding: 4px 0; cursor: pointer; text-align: left;
+  border-left: 2px solid transparent; padding-left: 10px; transition: color 0.3s, border-color 0.3s, opacity 0.3s;
+}
+.view-section .labels button { text-align: right; border-left: 0; border-right: 2px solid transparent; padding-left: 0; padding-right: 10px; }
+.labels button:hover { color: #fff; }
+.labels button.is-on { color: #fff; border-color: var(--violet); }
+.labels button.is-off { opacity: 0.5; }
+.labels.is-hidden, .leaders.is-hidden { opacity: 0; pointer-events: none; }
+
+.leaders { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; transition: opacity 0.35s; }
+.leaders line { stroke: var(--mist); stroke-width: 1.2; }
+.leaders circle { fill: var(--plate); }
+.leaders .is-on line { stroke: var(--violet); stroke-width: 1.6; }
+.leaders .is-on circle { fill: var(--violet); }
+.leaders .is-off { opacity: 0.35; }
+
+.controls { position: absolute; left: var(--gutter); bottom: var(--gutter); }
+.caption { margin: 0 0 4px; font-size: 15px; color: var(--mist); }
+.caption.note { color: var(--plate); }
+.buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.buttons button {
+  font: 400 15px/1 var(--sans); color: var(--plate); background: rgba(21, 23, 27, 0.7); border: 1px solid var(--rule);
+  border-radius: 999px; padding: 10px 14px; cursor: pointer;
+}
+.buttons button:hover { border-color: var(--plate); }
+.buttons button[aria-pressed='true'] { border-color: var(--violet); }
+.buttons button:disabled { opacity: 0.4; cursor: default; }
+kbd { font: inherit; font-size: 12px; color: var(--mist); margin-left: 6px; }
+
+.credit { position: absolute; right: var(--gutter); bottom: var(--gutter); margin: 0; max-width: 30rem; text-align: right; font-size: 12px; color: var(--mist); }
+.loading { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: var(--mist); }
+
+button:focus-visible { outline: 2px solid var(--violet); outline-offset: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Portrait and phones: labels become a wrapped list under the subject; leader lines hidden. */
+@media (max-aspect-ratio: 9/10), (max-width: 760px) {
+  .leaders { display: none; }
+  .statement { font-size: 16px; }
+  .labels, .view-section .labels {
+    top: auto; transform: none; left: var(--gutter); right: var(--gutter); bottom: calc(var(--gutter) + 150px);
+    display: flex; flex-wrap: wrap; gap: 8px 16px;
+  }
+  .labels button, .view-section .labels button { font-size: 16px; text-align: left; border: 0; border-bottom: 2px solid transparent; padding: 4px 0; }
+  .labels button.is-on { border-color: var(--violet); }
+  .controls { bottom: calc(var(--gutter) + 30px); }
+  .credit { left: var(--gutter); right: var(--gutter); bottom: 10px; text-align: left; font-size: 11px; line-height: 1.35; }
+  .progress { top: calc(var(--gutter) + 2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .labels, .leaders, .labels button { transition: none; }
+}
