@@ -1,257 +1,310 @@
-# NEUROVERSE — Checkpoint 2: Decisions
+# NEUROVERSE — Checkpoint 2: Decisions (revision 2)
 
-Status: proposed, awaiting approval. Nothing here is production code.
+Status: revised after review on 26 Oct 2026; awaiting approval. Planning only, no production code.
+
+Approved in revision 1 and kept: the Exposure concept, the atlas inspiration, the typography,
+and the violet identity. Replaced: the restriction on cinematic movement.
 
 ## Inputs
 
-- Entry mode: Surprise me
-- Experience type: Hybrid, with 5-step Presentation Mode and Explore Mode in scenes 2 and 4 (limited orbit in scene 3)
-- Niche: educational neuroscience presentation for introductory undergraduate audiences
-- Steps: 5 (working titles in `brief.md`)
-- Image placeholders: none
-- Research conditions: page fetching is blocked from this environment. Research below comes
-  from search-result snippets and from the repository itself. Every item says which.
+- Entry mode: Surprise me. Image placeholders: none.
+- Experience type: Hybrid. 5-step Presentation Mode; Explore Mode in scenes 2 and 4, limited
+  orbit in scene 3.
+- Audience: introductory undergraduate, English.
+- Visual direction from the client: premium cinematic scientific visualisation; anatomically
+  credible geometry; deep black and charcoal environments; controlled violet with complementary
+  light only where justified; dramatic lighting, realistic materials, elegant camera movement;
+  minimal readable type; no futuristic HUD clutter.
+- Client visual references: **not received yet.** None are attached to the conversation or the
+  session uploads. When they arrive they are used as inspiration only and recorded in the
+  originality statement.
+- Research conditions: every source and asset site is still blocked from this environment.
+  Findings below are from search-result snippets unless marked *Verified*.
 
 ## Concept: Exposure
 
-**A lecture developed like a photograph.**
+**A lecture developed like a photograph.** Exposure is now about understanding, not just
+brightness: each scene brings more of the brain into the light of explanation.
 
-Each step is a held frame: a precisely lit brain plate the presenter can talk over. The image
-holds still while the presenter's voice carries time. Movement happens only between steps,
-as one deliberate camera move. Across the five steps, exposure rises, from a dark plate
-where the brain first appears to a fully lit, drawn plate where everything learned is legible
-at once.
+- **Teaching frames are stable.** While labels and explanations are on screen, the camera is
+  still, so the audience can read and the presenter can talk.
+- **Transitions are cinematic.** Between steps, the camera performs one choreographed move
+  with real depth: travelling around, past and through the brain.
+- **The brain is a premium 3D object.** Realistic tissue materials, dramatic lighting and
+  depth of field, not a flat illustration.
+- **Exposure rises across the arc.** Scenes 1–4 live in deep black and charcoal. Scene 5 is
+  the one light scene, where the brain resolves into drawn line work on a lit plate: the moment
+  of understanding.
 
-Why this fits the brief:
-- **Lecture use.** A presenter talks over still images; audiences read labels while the image
-  holds. Constant motion competes with the speaker.
-- **Projector legibility.** Held frames with controlled tonal range read well on a washed-out
-  projector; there is no reliance on detail in deep shadow.
-- **Awe through restraint.** When everything else is still, the one moment of autonomous
-  motion (an impulse travelling along a real neuron in scene 3) lands with force.
-- **Scientific credibility.** The visual grammar borrows from anatomical atlases: standard
-  views, scale bars, orientation marks and leader-line labels. Credibility is part of the look.
-
-## References and the principles taken from them
+## References and principles
 
 ### A. *La Jetée* (Chris Marker, 1962), primary film reference
 
-Research boundary: snippet-level only. Sources describe the film as built almost entirely
-from still photographs with voice-over, with a single brief moving shot
-([Wikipedia](https://en.wikipedia.org/wiki/La_Jet%C3%A9e), [TCM](https://tcm.com/tcmdb/title/648488/wd),
-[QAGOMA](https://qagoma.qld.gov.au/cinema/screening/la-jetee)). I could not open the pages or
-view the film here.
+Snippet-level research: built almost entirely from still photographs with voice-over, with one
+brief moving shot ([Wikipedia](https://en.wikipedia.org/wiki/La_Jet%C3%A9e),
+[TCM](https://tcm.com/tcmdb/title/648488/wd)).
 
-Principles, in our own words:
-1. **The image holds; the voice moves.** Time is carried by narration over held frames.
-   → Steps arrive and hold. No idle drift. The presenter supplies the pacing.
-2. **Sequence makes motion in the mind.** The cut between two stills does the storytelling.
-   → Transitions are the cinematic moments: one move per change of step.
-3. **One true movement among stills.** A single moving moment gains enormous force.
-   → Only one autonomous animation in the whole presentation: the scene 3 impulse.
-4. **Photographic tonality.** A greyscale world where tone, not colour, builds form.
-   → Near-monochrome palette. Colour is reserved for meaning (see *Palette*).
+Principles kept, in our words:
+1. **The image holds; the voice moves.** → Stable teaching frames under the presenter's voice.
+2. **Sequence creates motion in the mind.** → Each transition is designed as a cinematic
+   moment, not a fade between slides.
+3. **One unmistakable living moment.** → The scene 3 neural signal is the only *autonomous*
+   process animation; every other movement is camera or presenter-driven.
 
-Deliberately not taken: any shot, composition, face, location, story, title card, typography,
-sound or still from the film. Nothing in NEUROVERSE should let a viewer name the film from a
-frame.
+Not taken: any shot, face, location, story, title card, typography or sound from the film.
 
-### B. Santiago Ramón y Cajal's histological drawings, secondary reference
+### B. Cajal's histological drawings, secondary reference
 
-Research boundary: snippet-level. Commons records describe the drawings as public domain
-(Cajal died in 1934); scans held by the Cajal Institute carry their own credit line, and the
-Institute's reuse terms were not found ([Marginalian](https://www.themarginalian.org/2017/02/23/beautiful-brain-santiago-ramon-y-cajal/),
-[Commons-derived record](https://biol300.case.edu/wiki/File:PurkinjeCell.jpg)).
+Snippet-level: generally described as public domain; the Cajal Institute's scan terms not found.
+Principle: line as explanation. → Scene 5's line-work brain. No Cajal drawing is traced or shown.
 
-Principles:
-1. **Drawing as explanation.** Line clarifies structure better than photographic surface.
-   → Scene 5 resolves the brain into an ink-like line rendering on a light plate.
-2. **Ink on paper.** A two-tone material world.
-   → The light end of the exposure arc is paper-and-ink, not glossy UI.
+### C. Anatomical atlas conventions
 
-Deliberately not taken: no Cajal drawing is traced, reproduced or displayed. Neurons are
-generated from reconstruction data (see *Asset strategy*), not from his plates.
-
-### C. Anatomical atlas conventions (not a copyrighted work)
-
-Standard anatomical views (lateral, medial, superior, inferior, anterior), section planes
-(sagittal, coronal, axial), orientation markers, scale bars and leader-line labels. These are
-shared scientific conventions; they become our framing grammar.
+Standard views and section planes, orientation markers, scale bars, leader-line labels. Shared
+scientific conventions, used as the teaching-frame grammar.
 
 ## Originality statement
 
-Taken: held frames carried by a voice; one movement among stills; tonal rather than
-chromatic form; line as explanation; atlas conventions as framing.
-Not taken: any recognisable image, composition or element of *La Jetée*; any Cajal plate;
-any layout or visual element from ÉCLAT. Palette, type, composition and camera language below
-are derived from the subject: fixed brain tissue, histological stains, atlas plates and
+Taken as principles: stable frames under a voice, transitions as storytelling, one living
+moment, line as explanation, atlas conventions. Not taken: any recognisable element of *La
+Jetée*, any Cajal plate, anything from ÉCLAT (below). Palette, materials, composition and camera
+language derive from the subject: brain tissue, histological stains, neural signalling and
 lecture halls.
 
-## Previous-work audit (ÉCLAT)
+## Previous-work audit (ÉCLAT) — verified from the repository
 
-Audited from the repository (`eclat/src/styles/global.css`, `eclat/README.md`). Verified.
-
-Traits most likely to repeat:
-- Scroll as the primary driver, with pinned sections and scrubbed camera moves
-- Obsidian ground (`#090909`), ivory text, gold accent (`#c7a46a`)
-- Cormorant Garamond (light, italic) display with Manrope body
-- A precious object lit by studio softboxes on dark velvet; turntable inspection
-- Full-bleed campaign photography and editorial cards
-- Custom cursor; percentage preloader; captions over a bottom scrim
-- Numbered scene labels (00–09)
-- Its first section is **"The Awakening"**: a beam of light reveals the object in darkness
+ÉCLAT traits: scroll-driven pinned scenes; warm obsidian `#090909` with ivory and gold
+`#c7a46a`; Cormorant Garamond with Manrope; a precious object under softbox studio light on
+velvet; turntable inspection; full-bleed photography; editorial cards; custom cursor; numbered
+scenes 00–09; an opening called "The Awakening" where a beam of light reveals the object.
 
 ### Shell-ban list
 
-- No scroll-driven narrative; navigation is by step
-- No obsidian/ivory/gold palette, and no near-black + single bright accent
-- No high-contrast fashion serif; no Cormorant or Manrope
-- No softbox studio "precious object" lighting; no velvet; no turntable rotation as a scene
-- No full-bleed photography; no card rails or editorial card grids
-- No custom cursor
-- No large numbered step markers as decoration (a plain "2 of 5" counter is allowed, because
-  the steps are a real sequence)
-- No beam-of-light reveal in darkness as the opening
+- No scroll-driven narrative; navigation is by step.
+- No ivory/gold palette, no warm obsidian. Our black is cool and neutral, and the accent is
+  violet, never gold.
+- No Cormorant, no Manrope, no high-contrast fashion serif.
+- No softbox "precious object" studio look, no velvet, no turntable rotation as a scene.
+- No full-bleed photography, no card rails, no custom cursor.
+- No decorative numbered scene markers (a plain "2 of 5" counter is allowed).
+- **No light-reveal opening.** Scene 1 opens by construction, not illumination (see below).
 
-**Flag for the brief:** scene 1's working title, *The Awakening*, is the same as ÉCLAT's
-opening section, and "light reveals the subject in darkness" is the obvious way to stage it.
-I recommend a new title and a different opening idea at Checkpoint 3. The scene's purpose
-stays the same.
+Note: the client's direction asks for deep black environments, which ÉCLAT also used. The
+difference is carried by temperature (cool neutral, not warm), accent (violet, not gold),
+type, composition (atlas field, not full-bleed stage) and subject treatment (a scientific
+specimen, not a luxury object).
 
-### Primary composition family: atlas plate
+### Primary composition family: atlas field
 
-The subject sits in a measured field with generous margins. Labels sit in the margins and
-connect to the subject by leader lines. Orientation marks and a scale bar anchor the plate.
-Text lives in a narrow margin column, like a plate caption. This differs from ÉCLAT's
-full-bleed stage with bottom captions, and survives the grayscale-wireframe test.
+The subject occupies a deep, dark field with a deliberate off-centre position. A narrow
+margin column carries the text. Labels reach the subject by leader lines. Orientation marks
+and a scale bar anchor teaching frames. Transitions break the field with depth and travel,
+then settle back into it.
 
 ## Visual identity
 
 ### Palette
 
-Five named tokens. Greyscale does the work; violet carries meaning only.
-
 | Token | Hex | Role |
 |---|---|---|
-| `--darkroom` | `#1C1E21` | Ground at the dark end of the exposure arc |
-| `--plate` | `#E6E5E0` | Ground at the light end; text on dark grounds |
-| `--ink` | `#222326` | Text and line work on light grounds |
-| `--graphite` | `#5A5E64` | Secondary text and rules on light grounds (`--fog` `#9EA2A6` is its counterpart on dark grounds) |
-| `--nissl` | `#5B3FB0` | The single signal colour: the structure being discussed or selected (`#9C86F0` on dark grounds) |
+| `--abyss` | `#07080A` | Deep black environment: scenes 1, 3 |
+| `--charcoal` | `#15171B` | Charcoal environment: scenes 2, 4; panels on abyss |
+| `--plate` | `#E6E5E0` | Light ground of scene 5; primary text on dark grounds |
+| `--ink` | `#1E2024` | Text and line work on the light ground |
+| `--mist` | `#A3A7AD` | Secondary text on dark grounds (`--graphite` `#5A5E64` on light) |
+| `--violet` | `#9C86F0` | Signal colour on dark grounds (`#5B3FB0` on light) |
 
-Derivation: fixed brain tissue is grey-beige; histological stains give structure its colour
-(Nissl staining is violet). Violet therefore means "this is what we are looking at", and
-nothing else in the interface uses colour.
+**One complementary colour, used once:** `--amber` `#E3A857`, only in scene 3, for the
+*chemical* stage of signalling (neurotransmitter release). Justification: electrical and
+chemical signalling are different processes, and the audience must tell them apart.
+Violet = electrical signal and "what we are discussing"; amber = chemical messenger.
+Nowhere else.
 
-Contrast (WCAG, computed): `--plate` on `--darkroom` 13.2:1; `--fog` on `--darkroom` 6.5:1;
-violet `#9C86F0` on `--darkroom` 5.6:1; `--ink` on `--plate` 12.5:1; `--graphite` on
-`--plate` 5.2:1; `--nissl` on `--plate` 6.0:1. All pass AA for normal text.
+Contrast (computed, WCAG): `--plate` on `--abyss` 15.9:1 and on `--charcoal` 14.2:1;
+`--mist` 8.3:1 / 7.4:1; `--violet` 6.8:1 / 6.0:1; `--amber` 9.6:1 / 8.6:1; `--ink` on
+`--plate` 12.9:1; `--graphite` on `--plate` 5.2:1; violet ink on `--plate` 6.0:1. All pass
+AA; most pass AAA.
 
-Constraint found while checking: the brain's tissue colour (`#CDBFAE`) against `--plate` is
-only 1.4:1, so a shaded 3D brain cannot sit directly on the light ground. On light steps the
-brain is drawn as line work, or sits in a darker field. This is a design rule, not a fix with
-effects.
+### How the palette works on brain tissue
 
-Not used: obsidian, gold, cream `#F4F1EA`, terracotta, acid green, vermilion.
+Tissue colours are scientific (realistic), violet on tissue is artistic (labelled
+"Illustrative colour").
+
+| Material | Base colour | Notes |
+|---|---|---|
+| Cortex (grey matter) | `#A89A8E` | Neutral grey-beige, matte with a faint wet sheen; 7.3:1 against `--abyss`, so the silhouette holds on projectors |
+| White matter (in sections) | `#D6CEC3` | Lighter and smoother, visible when a section plane cuts the brain |
+| Deep structures (scene 4) | Grey matter colour | Distinguished by position and outline, not invented colours |
+
+Selection rule found while checking: violet-tinted tissue is almost the same *brightness* as
+untinted tissue (1.05:1), so colour alone cannot show selection, and colour-blind viewers would
+miss it. Selection therefore always combines three cues: **the rest of the brain dims** (to
+`#47423F`, giving 3.5:1 between selected and unselected), **the selected structure gains a
+violet tint and edge line**, and **its label appears in the margin**.
+
+Lighting supports this: a neutral cool-white key light for realistic tissue, a soft fill, and
+a separation rim. Violet light appears only as meaning (selection, the electrical signal, the
+scene 1 contours), never as general mood lighting.
 
 ### Typography
 
-| Role | Family | Why |
-|---|---|---|
-| Narrative voice: step titles, key statements | **Newsreader** (variable, optical sizes) | A sturdy text serif from the textbook lineage, with display optical sizes for large titles. It is not a fashion serif |
-| Labels, captions, controls, body | **Atkinson Hyperlegible Next** | Designed for maximum character distinction; labels must survive projectors and low vision |
+- **Newsreader** (variable, optical sizes): scene titles and key statements.
+- **Atkinson Hyperlegible Next**: labels, captions, controls, body.
+- Both OFL-1.1, self-hosted from npm (`@fontsource-variable/...` 5.3.0, verified on the npm
+  registry).
+- Minimal on screen: per teaching frame, at most one title, one short statement (≤ 25 words)
+  and up to 6 labels. Sentence case; no all-caps; no monospace. No HUD elements: no
+  coordinates, no fake readouts, no scanning lines, no hexagons, no glowing grids.
 
-Both are OFL-1.1 and self-hostable from npm (`@fontsource-variable/newsreader` 5.3.0,
-`@fontsource-variable/atkinson-hyperlegible-next` 5.3.0; licences verified on the npm
-registry). Exact versions get pinned at Checkpoint 4.
+## Camera choreography
 
-Rules: sentence case everywhere; no all-caps labels; no monospace labels; anatomical terms
-in their standard English form with a consistent naming source (see *Sources*).
+### Teaching frames (stable)
 
-## Camera language
+- Camera locked while labels or explanations are visible.
+- Each frame is a named view ("Left lateral view", "Midsagittal section"), shown as a caption.
+- Long lens, about 24–32° vertical field of view, to keep anatomy undistorted.
+- Dramatic but readable composition: the brain fills 55–75% of the frame height, placed
+  off-centre against the margin column; partial crops are allowed in transitions, not in
+  teaching frames.
 
-- **Held frames.** The camera arrives and stops. No idle drift, roll or handheld shake.
-- **Long lens.** Vertical field of view around 24–30°, so anatomy reads with little
-  perspective distortion, like an atlas view.
-- **Views are anatomical.** Each held frame corresponds to a named view or section plane.
-  The view's name is part of the plate (e.g. "Left lateral view").
-- **One move per transition.** Vocabulary: *dolly* (toward or away), *arc* (around the brain
-  to another standard view), *rise* (to a superior view), *section* (a clipping plane passes
-  through to reveal an internal structure). 1.8–2.6 s each.
-- **No false continuity of scale.** Brain → neuron → synapse is not one continuous zoom,
-  because that would imply a single real-time camera could see all three. Scale changes are
-  cuts under a cross-exposure, with the scale bar updating and "Not to scale" shown where
-  relevant.
+### Transitions (cinematic)
 
-## Transitions
+- One choreographed move per step change, 2.4–4 s, with ease-in-out and a slight settle.
+- Move vocabulary:
+  - **Orbit** around the brain to a new standard view.
+  - **Dolly with parallax**: the camera passes close to the surface; shallow depth of field
+    blurs the foreground edge.
+  - **Section sweep**: a cutting plane moves through the brain, revealing interior anatomy.
+  - **Descent**: the camera enters the cortex surface, then a cross-exposure cuts to the
+    cellular scale.
+- Labels leave before the move and arrive after the camera settles.
+- Moves are deterministic: each is a function of transition progress, so an interrupted move
+  jumps cleanly to its target frame.
+- Reduced motion: the move becomes a 300 ms crossfade between the two teaching frames.
 
-| Change | Transition |
-|---|---|
-| Same subject, new view | Labels leave first; one camera move; the new labels arrive after the camera stops. Labels never travel with the camera |
-| New subject or scale | Cross-exposure: the outgoing frame and incoming frame overlap like a photographic dissolve, about 1.2 s |
-| Exposure | The ground value shifts only during transitions, never while a frame is held |
-| Interrupted | Pressing next or previous mid-transition jumps cleanly to the target frame; animations never queue |
-| Reduced motion | A cut with a short (~200 ms) crossfade; no camera flights |
+### Selected interactive moments
+
+- Explore Mode selection: the camera glides to frame the chosen structure (1.2 s), keeping the
+  rest of the brain in view for context.
+- Section sweep under presenter control in scene 2 (drag or keys move the cutting plane).
+- Scene 3 signal: the presenter triggers the signal; it is never on a loop.
+
+### Scale honesty
+
+Brain → cortex → neuron → synapse is not one continuous zoom. The camera's descent toward the
+cortex is real; the change of scale is a cut under a cross-exposure, with the scale bar
+updating and "Not to scale" shown where scales are mixed.
 
 ## Interaction principles
 
-1. **The presenter is in charge.** One key, click or tap is one step. Nothing advances on its
-   own.
-2. **Explore is a deliberate mode.** It's entered with a visible control or a key. The plate
-   changes state visibly (margin labels become selectable; orbit unlocks), so the audience can
-   see the presenter has left the narrative.
-3. **Selection uses the signal colour.** A selected structure turns violet, and its label and
-   description appear in the margin column. Nothing else changes colour.
-4. **Labels are leader lines, not tooltips.** They point from the margin to the structure, as
-   on an atlas plate, and are readable from the back of a lecture hall.
-5. **Every 3D fact exists as HTML.** Each step has a text list of what the image shows, which
-   screen readers and the non-WebGL fallback both use.
-6. **Return is exact.** Leaving Explore Mode restores the step, the camera and the exposure.
+1. The presenter is in charge: one input, one step; nothing advances automatically.
+2. Explore Mode is a visible mode change; the audience can see the narrative is paused.
+3. Selection combines dimming, violet tint and edge, and a margin label.
+4. Labels are leader lines from the margin, readable from the back of a lecture hall.
+5. Every fact shown in 3D also exists as HTML, for screen readers and the non-WebGL version.
+6. Leaving Explore Mode restores the exact step, camera and exposure.
+
+## Scene concepts
+
+The full visual storyboard is in `storyboard-draft.html` (an early look at Checkpoint 3,
+requested in this review). Summary:
+
+| # | Working title | Purpose | Signature moment |
+|---|---|---|---|
+| 1 | **Taking Shape** (alt. *Slice by Slice*) | Introduce the brain as a real, measurable object | Stacked contour slices, computed from the model, consolidate into the solid brain. Construction, not a light reveal |
+| 2 | The Architecture of Thought | The major structures and what they do | A section sweep cuts the brain open on the midline to show what lies inside |
+| 3 | The Neural Network | How neurons signal | A real reconstructed neuron fires: electrical signal along the axon (violet), chemical release at the synapse (amber) |
+| 4 | Memory & Emotion | Memory and emotion as networks, not single centres | The cortex becomes translucent; deep structures and their connections appear inside |
+| 5 | The Human Mind | Synthesis | Exposure rises: the brain resolves into line work on a lit plate, with every structure from the journey in one view |
+
+Scene 3 has three beats inside one step (neuron, signal, synapse), advanced by the same
+next control, so it gets the time it needs without becoming three scenes.
 
 ## Scientific scope and the fact / artistic line
 
-Content facts are not written yet: they belong in `fact-register.md` at Checkpoint 3, and only
-from sources I can actually check. This checkpoint fixes the policy.
+Facts are not written yet; they go into `fact-register.md` at Checkpoint 3, only from sources
+I can read.
 
-- **Scientific (must be accurate):** structure names, positions, shapes, relative sizes within
-  a scale, functions as stated in introductory textbooks, and neuron morphology.
-- **Artistic (must be labelled):** violet highlighting ("Illustrative colour"), the impulse's
-  glow and timing ("Slowed down"), the scale cuts ("Not to scale"), synapse rendering
-  ("Simplified").
-- Popular myths stay out of the presentation: "we use 10% of our brain", "left-brained vs
-  right-brained", and memory stored in a single region.
-- Memory and emotion are described as networks of structures, not as single "centres".
+- **Scientific (accurate):** structure names, positions, shapes, relative sizes, functions at
+  textbook level, neuron morphology, direction of signal travel, sequence of synaptic events.
+- **Artistic (labelled on screen):** violet and amber colours ("Illustrative colour"), the
+  signal's glow and speed ("Slowed down"), scale cuts ("Not to scale"), synapse rendering and
+  translucent cortex ("Simplified"), contour slices in scene 1 ("Computed from the 3D model",
+  so they are not mistaken for MRI scans).
+- Excluded myths: "we use 10% of our brain", "left-brained vs right-brained", "memory lives in
+  one place", "the amygdala is the fear centre" as a single-region claim.
 
-## Initial asset strategy
+## Asset strategy
 
-Nothing below is verified as available, suitable or licensed yet. All of it goes through the
-asset quality gate at Checkpoint 4.
+**Nothing below is verified.** The licence pages and data could not be opened; everything is
+from search snippets. No purchase and no CC BY-SA commitment without your approval.
 
-| Need | First choice | Fallback | Status |
-|---|---|---|---|
-| Brain with separate regions (scenes 1, 2, 4, 5) | **BodyParts3D** (DBCLS). Snippet evidence: CC BY-SA 2.1 Japan with a required credit line, per its README ([README](https://dbarchive.biosciencedbc.jp/data/bodyparts3d/20110915/README_e.html)) | A purchased model you upload, with a licence that allows real-time web use | Site blocked. Unverified: which brain parts exist as separate meshes, mesh quality, whether hippocampus and amygdala are included |
-| Real brain surface quality | **Tel Aviv University neuroanatomy course** photogrammetry models of real brains, described as open educational resources ([TAU](https://www.neuroanatomy.sites.tau.ac.il/about)) | BodyParts3D surface alone | Licence and download unverified |
-| Neuron (scene 3) | **NeuroMorpho.Org** reconstruction of a real human neuron, converted to geometry. RRID:SCR_002145 ([SciCrunch](https://scicrunch.org/resolver/RRID:SCR_002145)) | A procedurally generated neuron, labelled "Illustrative" | Licence not found in snippets. Unverified |
-| Synapse close-up (scene 3) | Original procedural model, labelled "Simplified" | None needed | Can be made in-house |
+### BodyParts3D (DBCLS), proposed primary anatomical source
 
-Share-alike note: if BodyParts3D is used, modified model files must carry the same CC BY-SA
-licence and the credit line. The application code is a separate work. Confirm you're
-comfortable with that before the asset gate.
-
-## Verified vs assumed
-
-| Verified (checked here) | Snippet-level (not opened) | Assumed (needs checking) |
+| Question | Snippet-level finding | Status |
 |---|---|---|
-| ÉCLAT's palette, fonts and structure (from the repo) | *La Jetée* stills-and-narration structure and its one moving shot | Which brain regions BodyParts3D provides as separate meshes |
-| Font licences and versions (npm registry) | BodyParts3D licence and credit line (README snippet) | Mesh quality and file sizes of any candidate |
-| Palette contrast ratios (computed) | Cajal drawings' public-domain status | NeuroMorpho data licence |
-| Network status: all source and asset sites blocked; npm reachable | TAU photogrammetry models exist as open resources | TAU model licence and availability |
-| | | That the camera/transition timings feel right (to be checked at Checkpoint 3 and in scene gates) |
+| Dataset version | Official download page lists **4.0** OBJ sets, e.g. `isa_BP3D_4.0_obj_99.zip` (136 MB, IS-A tree, 99% polygon reduction), plus a PART-OF variant and parts-list tables ([download](https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html)). Earlier sets: 2.0, 3.0 ([info](http://lifesciencedb.jp/bp3d/info_en/index.html)) | Unverified |
+| Licence | **Version-dependent and conflicting.** The archive's current licence page reportedly states **CC BY 4.0** with the line "BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International" ([licence page](https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html)). The 2011 (v3.0-era) README states **CC BY-SA 2.1 Japan** ([2011 README](https://dbarchive.biosciencedbc.jp/data/bodyparts3d/20110915/README_e.html)). A third-party project notes old OBJ headers still carry the BY-SA text ([example](https://github.com/cesarmariel/human-atlas/pull/5)) | Unverified; must read the official page and the headers of the exact files we download |
+| Attribution | The credit line above (CC BY 4.0 wording) or the BY-SA 2.1 JP wording, depending on version | Unverified |
+| Redistribution | If CC BY 4.0: modified meshes may be redistributed, including commercially, with attribution; no share-alike. If BY-SA: modified meshes must carry BY-SA | Depends on the verified licence |
+| Structures | Brain parts exist as separate meshes in public derivatives (e.g. calcarine sulcus, lingual gyrus models). Only "atomic" organs are meshed, so lobes may need assembling from gyri via the parts list. Hippocampus and amygdala availability unknown ([Anatomography](https://en.wikipedia.org/wiki/Anatomography)) | Unverified |
+| Geometry quality | The 4.0 public set is 99% polygon-reduced; no quality data found for brain structures. Close-up camera work may expose coarse geometry | Unknown; a real risk |
+| GLB conversion | Feasible in principle: OBJ → merge per structure → clean and simplify (meshoptimizer) → normals → GLB with meshopt compression, via `@gltf-transform/cli` | Feasible; needs the files to confirm effort |
 
-## Dependencies blocking later checkpoints
+Risk: if the 99% set is too coarse for premium close-ups, options are a higher-resolution set
+if one exists, or limiting close-ups. Effects will not be used to hide coarse geometry.
 
-1. **Network access** to the domains in `sources.md`, or uploaded material. Without it the fact
-   register (Checkpoint 3) and the asset gate (Checkpoint 4) cannot be completed honestly.
-2. **Asset decision**, including your view on CC BY-SA share-alike, by Tue 27 Oct midday.
-3. **Scene 1 title and opening** (see the ÉCLAT flag above), decided at Checkpoint 3.
-4. **Real devices** and **expert review** remain open from Checkpoint 1.
+### Tel Aviv University photogrammetry models
+
+| Criterion | Finding |
+|---|---|
+| Scientific credibility | High: photogrammetry of real donated brains, published in *Anatomical Sciences Education* 2024 (Aridan et al.) ([PubMed](https://pubmed.ncbi.nlm.nih.gov/37997182/)) |
+| Visual quality | Likely strong surface realism (real tissue texture) |
+| Technical suitability | Unknown structure separation; photogrammetry meshes are usually single surfaces, which suits scene 1 and 5 visuals more than selectable regions |
+| Licence | The TAU 3D-models page reportedly states **CC BY-NC-ND 4.0** ([TAU](https://www.neuroanatomy.sites.tau.ac.il/3d-models)) |
+
+Assessment: if NC-ND is confirmed, **unsuitable** for a commercial demo (no commercial use, no
+modification, which rules out optimising to GLB). Only usable with written permission from TAU.
+
+### NeuroMorpho.Org neuron reconstructions
+
+| Criterion | Finding |
+|---|---|
+| Scientific credibility | High: a curated repository of digital reconstructions from published studies; RRID:SCR_002145 |
+| Visual quality | Reconstructions are skeletons (SWC: points and radii); we generate the 3D tube geometry ourselves, so final quality is in our hands |
+| Technical suitability | Good: SWC is simple to convert; the neuron can be generated at several levels of detail |
+| Licence | The terms page reportedly states **CC BY 4.0**, and asks users to cite the original paper(s), the repository with its RRID, and a 2024 paper by Tecuatl, Ljungquist and Ascoli ([terms](https://www.neuromorpho.org/useterm.jsp)) |
+
+Assessment: likely the strongest option for scene 3 if CC BY 4.0 is confirmed. Commercial use
+was not explicitly addressed in the snippets.
+
+### Synapse
+
+Original procedural model built in-house, labelled "Simplified". No licence risk.
+
+### Ranking (pending verification)
+
+1. Brain: BodyParts3D 4.0, only if the current licence is confirmed as CC BY 4.0 for the exact
+   files used and the geometry passes the asset gate.
+2. Neuron: NeuroMorpho.Org human pyramidal neuron, if CC BY 4.0 is confirmed.
+3. Synapse: in-house.
+4. TAU models: excluded unless TAU grants permission.
+5. Purchased model: only with your approval, as a fallback for the brain.
+
+## Verified vs snippet-level vs assumed
+
+| Verified here | Snippet-level only | Assumed / unknown |
+|---|---|---|
+| ÉCLAT audit (repo) | *La Jetée* structure | BodyParts3D brain structure list and mesh quality |
+| Font licences (npm) | BodyParts3D versions and the CC BY 4.0 vs BY-SA conflict | Which licence applies to the exact files we'd download |
+| Palette and tissue contrast (computed) | TAU licence CC BY-NC-ND 4.0 | Commercial-use confirmation for NeuroMorpho data |
+| All source/asset sites blocked; npm reachable | NeuroMorpho CC BY 4.0 and citation requirements | Whether camera timings feel right (checked at scene gates) |
+
+## What blocks the next steps
+
+1. **Network access** (domains in `sources.md`) or uploaded files. Needed to verify licences,
+   inspect geometry and write the fact register.
+2. **Asset decision** after verification. BodyParts3D licence wording must be read on the
+   official page and in the downloaded files themselves.
+3. **Your visual references**, if you want them reflected before the storyboard is finalised.
+4. Real devices and expert review remain open.

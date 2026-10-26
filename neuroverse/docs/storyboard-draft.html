@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEUROVERSE storyboard</title>
+<style>
+  :root {
+    --abyss: #07080A; --charcoal: #15171B; --plate: #E6E5E0; --ink: #1E2024;
+    --mist: #A3A7AD; --graphite: #5A5E64; --violet: #9C86F0; --violet-ink: #5B3FB0;
+    --amber: #E3A857; --grey-matter: #A89A8E; --white-matter: #D6CEC3; --dimmed: #47423F;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --sans: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0E0F12; color: var(--plate); font: 16px/1.55 var(--sans); }
+  main { max-width: 1180px; margin: 0 auto; padding: 48px 16px 96px; }
+  h1 { font: 400 clamp(32px, 5vw, 52px)/1.1 var(--serif); margin: 0 0 12px; }
+  h2 { font: 400 clamp(24px, 3.4vw, 34px)/1.2 var(--serif); margin: 72px 0 6px; }
+  h3 { font: 600 17px/1.3 var(--sans); margin: 28px 0 8px; color: var(--plate); }
+  p, li, dd { color: var(--mist); max-width: 72ch; }
+  .lede { font-size: 18px; color: var(--plate); }
+  .note { border-left: 2px solid var(--violet); padding: 4px 0 4px 14px; margin: 20px 0; }
+  figure { margin: 18px 0 0; }
+  svg.frame { display: block; width: 100%; height: auto; border: 1px solid #2A2D33; }
+  figcaption { font-size: 14px; color: var(--mist); margin-top: 8px; }
+  dl.spec { display: grid; grid-template-columns: 9rem 1fr; gap: 6px 18px; margin: 16px 0 0; }
+  dl.spec dt { color: var(--plate); font-weight: 600; font-size: 15px; }
+  dl.spec dd { margin: 0; font-size: 15px; }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-top: 16px; }
+  .sw { border: 1px solid #2A2D33; }
+  .sw b { display: block; height: 64px; }
+  .sw span { display: block; padding: 8px 10px; font-size: 13px; color: var(--mist); }
+  .sw span strong { color: var(--plate); font-weight: 600; }
+  @media (max-width: 640px) { dl.spec { grid-template-columns: 1fr; } dl.spec dt { margin-top: 8px; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>NEUROVERSE storyboard</h1>
+  <p class="lede">Early visual storyboard for Checkpoint 2 (revision 2): five scenes, camera, positioning, lighting, type, transitions and Explore Mode.</p>
+  <p class="note">These frames are schematic sketches. The brain and neuron shapes are placeholders drawn by hand, not the 3D models, and not anatomically accurate. Fonts fall back to system faces here. Labels mark topics; no scientific facts are stated until they are checked against sources.</p>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="brain-lat" viewBox="0 0 660 460">
+        <path d="M60,250 C40,170 90,90 190,60 C270,35 370,30 450,60 C530,90 585,150 590,220 C595,270 570,300 540,315 C520,330 500,350 470,352 C430,356 400,340 380,330 C350,345 320,360 290,358 C250,356 230,340 210,330 C170,345 120,335 95,310 C70,295 62,275 60,250 Z"/>
+        <ellipse cx="505" cy="360" rx="72" ry="38"/>
+        <path d="M405,335 C410,370 412,400 420,445 L458,445 C452,400 450,372 448,340 Z"/>
+      </symbol>
+      <symbol id="brain-sulci" viewBox="0 0 660 460">
+        <g fill="none" stroke-width="2.2" stroke-linecap="round">
+          <path d="M335,42 C320,110 300,170 285,250"/>
+          <path d="M165,262 C230,240 310,225 400,228"/>
+          <path d="M120,150 C160,140 200,150 230,135"/>
+          <path d="M210,95 C240,120 230,170 260,200"/>
+          <path d="M400,80 C410,130 440,160 470,170"/>
+          <path d="M470,110 C500,160 520,200 560,215"/>
+          <path d="M180,300 C240,290 300,300 360,292"/>
+          <path d="M455,345 C490,340 530,348 565,360"/>
+          <path d="M450,365 C490,362 530,370 560,378"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- PALETTE -->
+  <h2>Palette on tissue, dark and light</h2>
+  <p>Tissue colours are realistic; violet and amber are illustrative and labelled as such on screen. Selection never relies on colour alone.</p>
+  <div class="swatches">
+    <div class="sw"><b style="background:var(--abyss)"></b><span><strong>Abyss</strong> #07080A · scenes 1, 3</span></div>
+    <div class="sw"><b style="background:var(--charcoal)"></b><span><strong>Charcoal</strong> #15171B · scenes 2, 4</span></div>
+    <div class="sw"><b style="background:var(--plate)"></b><span><strong>Plate</strong> #E6E5E0 · scene 5, text on dark</span></div>
+    <div class="sw"><b style="background:var(--grey-matter)"></b><span><strong>Grey matter</strong> #A89A8E · 7.3:1 on abyss</span></div>
+    <div class="sw"><b style="background:var(--white-matter)"></b><span><strong>White matter</strong> #D6CEC3 · in sections</span></div>
+    <div class="sw"><b style="background:var(--violet)"></b><span><strong>Violet</strong> #9C86F0 · signal and selection</span></div>
+    <div class="sw"><b style="background:var(--amber)"></b><span><strong>Amber</strong> #E3A857 · chemical signal, scene 3 only</span></div>
+    <div class="sw"><b style="background:var(--ink)"></b><span><strong>Ink</strong> #1E2024 · line work on plate</span></div>
+  </div>
+  <figure>
+    <svg class="frame" viewBox="0 0 1600 560" role="img" aria-label="Selection on dark and light grounds">
+      <rect width="800" height="560" fill="#07080A"/>
+      <rect x="800" width="800" height="560" fill="#E6E5E0"/>
+      <g transform="translate(40,70) scale(0.95)">
+        <use href="#brain-lat" width="660" height="460" fill="#47423F"/>
+        <path d="M60,250 C40,170 90,90 190,60 C230,48 265,42 300,40 C300,120 290,190 285,250 C230,262 170,268 165,262 C120,270 80,265 60,250 Z" fill="#A391BA" stroke="#9C86F0" stroke-width="4"/>
+        <use href="#brain-sulci" width="660" height="460" stroke="#2C2826"/>
+      </g>
+      <text x="40" y="44" fill="#E6E5E0" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="22">Dark ground: rest of brain dims, selection tints violet with an edge line</text>
+      <line x1="330" y1="150" x2="640" y2="110" stroke="#9C86F0" stroke-width="2"/>
+      <circle cx="330" cy="150" r="5" fill="#9C86F0"/>
+      <text x="650" y="104" fill="#E6E5E0" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="22">Frontal lobe</text>
+      <text x="650" y="132" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="17">Illustrative colour</text>
+      <g transform="translate(860,70) scale(0.95)">
+        <use href="#brain-lat" width="660" height="460" fill="none" stroke="#1E2024" stroke-width="3"/>
+        <use href="#brain-sulci" width="660" height="460" stroke="#1E2024"/>
+        <path d="M60,250 C40,170 90,90 190,60 C230,48 265,42 300,40 C300,120 290,190 285,250 C230,262 170,268 165,262 C120,270 80,265 60,250 Z" fill="none" stroke="#5B3FB0" stroke-width="6"/>
+      </g>
+      <text x="840" y="44" fill="#1E2024" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="22">Light ground: tissue becomes ink line work; selection is a violet line</text>
+    </svg>
+    <figcaption>Selected vs dimmed tissue: 3.5:1. Violet-tinted vs untinted tissue alone: 1.05:1, which is why dimming and an edge line are always added.</figcaption>
+  </figure>
+
+  <!-- SCENE 1 -->
+  <h2>1 · Taking Shape</h2>
+  <p>Introduce the brain as a real, measurable object, built from its own cross-sections. Construction, not a light reveal.</p>
+  <figure>
+    <svg class="frame" viewBox="0 0 1600 900" role="img" aria-label="Scene 1 opening: stacked contour slices">
+      <rect width="1600" height="900" fill="#07080A"/>
+      <g fill="none" stroke="#9C86F0" stroke-width="1.6">
+        <ellipse cx="900" cy="160" rx="120" ry="26" opacity=".25"/>
+        <ellipse cx="900" cy="215" rx="200" ry="42" opacity=".35"/>
+        <ellipse cx="900" cy="275" rx="255" ry="54" opacity=".45"/>
+        <ellipse cx="900" cy="340" rx="290" ry="62" opacity=".6"/>
+        <ellipse cx="900" cy="410" rx="305" ry="66" opacity=".75"/>
+        <ellipse cx="900" cy="485" rx="300" ry="65" opacity=".9"/>
+        <ellipse cx="900" cy="560" rx="275" ry="60"/>
+        <ellipse cx="900" cy="630" rx="225" ry="50" opacity=".85"/>
+        <ellipse cx="900" cy="690" rx="150" ry="34" opacity=".7"/>
+        <ellipse cx="900" cy="740" rx="70" ry="18" opacity=".55"/>
+      </g>
+      <text x="96" y="790" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="20">Contours computed from the 3D model</text>
+    </svg>
+    <figcaption>1a · Opening (transition, no text to read). The camera rises slowly through stacked axial contours in violet line.</figcaption>
+  </figure>
+  <figure>
+    <svg class="frame" viewBox="0 0 1600 900" role="img" aria-label="Scene 1 teaching frame">
+      <rect width="1600" height="900" fill="#07080A"/>
+      <g transform="translate(730,175) scale(1.16) rotate(-6 330 230)">
+        <use href="#brain-lat" width="660" height="460" fill="#A89A8E"/>
+        <use href="#brain-sulci" width="660" height="460" stroke="#6E6259"/>
+      </g>
+      <text x="96" y="300" fill="#E6E5E0" font-family="Newsreader, Georgia, serif" font-size="66">Taking shape</text>
+      <text x="96" y="356" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="24">One short opening statement about the brain</text>
+      <text x="96" y="388" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="24">as an object we can measure (from the fact register).</text>
+      <text x="96" y="790" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="20">Left anterolateral view</text>
+      <line x1="1300" y1="790" x2="1480" y2="790" stroke="#E6E5E0" stroke-width="2"/>
+      <text x="1300" y="820" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="18">Scale bar (from model units)</text>
+      <text x="1480" y="80" fill="#A3A7AD" text-anchor="end" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="18">1 of 5</text>
+    </svg>
+    <figcaption>1b · Teaching frame. The contours fill in with tissue; the camera settles and locks; title and statement arrive.</figcaption>
+  </figure>
+  <dl class="spec">
+    <dt>Camera</dt><dd>1a: vertical rise through the slice stack, then a slow pull-back and 30° orbit (about 6 s, presenter can skip). 1b: locked, anterolateral three-quarter view, about 28° field of view.</dd>
+    <dt>Object</dt><dd>Whole brain, right of centre, about 70% of frame height. Slices are computed by cutting the actual model, not invented.</dd>
+    <dt>Lighting</dt><dd>Neutral cool-white key from upper left, low fill, thin separation rim. Violet exists only in the contour lines and fades as tissue appears.</dd>
+    <dt>Type</dt><dd>Newsreader title, one Atkinson statement (≤ 25 words), view name, scale bar, step counter.</dd>
+    <dt>Transition in</dt><dd>Opening sequence starts on the presenter's first input, not automatically.</dd>
+    <dt>Explore</dt><dd>Not available (overview scene).</dd>
+    <dt>Science</dt><dd>Scientific: overall shape and orientation. Artistic: violet contours, labelled "Computed from the 3D model".</dd>
+  </dl>
+
+  <!-- SCENE 2 -->
+  <h2>2 · The Architecture of Thought</h2>
+  <p>The major structures and what they do, then a cut on the midline to show what lies inside.</p>
+  <figure>
+    <svg class="frame" viewBox="0 0 1600 900" role="img" aria-label="Scene 2 teaching frame: lateral view with leader labels">
+      <rect width="1600" height="900" fill="#15171B"/>
+      <g transform="translate(150,170) scale(1.18)">
+        <use href="#brain-lat" width="660" height="460" fill="#A89A8E"/>
+        <use href="#brain-sulci" width="660" height="460" stroke="#6E6259"/>
+      </g>
+      <g stroke="#A3A7AD" stroke-width="1.6" fill="#A3A7AD">
+        <line x1="610" y1="250" x2="1100" y2="230"/><circle cx="610" cy="250" r="5"/>
+        <line x1="330" y1="300" x2="1100" y2="300"/><circle cx="330" cy="300" r="5"/>
+        <line x1="835" y1="420" x2="1100" y2="370"/><circle cx="835" cy="420" r="5"/>
+        <line x1="470" y1="520" x2="1100" y2="440"/><circle cx="470" cy="520" r="5"/>
+        <line x1="760" y1="600" x2="1100" y2="510"/><circle cx="760" cy="600" r="5"/>
+        <line x1="660" y1="660" x2="1100" y2="580"/><circle cx="660" cy="660" r="5"/>
+      </g>
+      <g fill="#E6E5E0" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="24">
+        <text x="1116" y="238">Parietal lobe</text><text x="1116" y="308">Frontal lobe</text>
+        <text x="1116" y="378">Occipital lobe</text><text x="1116" y="448">Temporal lobe</text>
+        <text x="1116" y="518">Cerebellum</text><text x="1116" y="588">Brainstem</text>
+      </g>
+      <text x="96" y="110" fill="#E6E5E0" font-family="Newsreader, Georgia, serif" font-size="54">The architecture of thought</text>
+      <text x="96" y="820" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="20">Left lateral view · Explore (E)</text>
+      <text x="1480" y="80" fill="#A3A7AD" text-anchor="end" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="18">2 of 5</text>
+    </svg>
+    <figcaption>2a · Teaching frame. Left lateral view, labels in the right margin with leader lines.</figcaption>
+  </figure>
+  <figure>
+    <svg class="frame" viewBox="0 0 1600 900" role="img" aria-label="Scene 2 section sweep: midsagittal view">
+      <rect width="1600" height="900" fill="#15171B"/>
+      <g transform="translate(470,170) scale(1.18)">
+        <use href="#brain-lat" width="660" height="460" fill="#A89A8E"/>
+        <path d="M150,230 C220,170 380,160 470,215 C430,200 260,195 170,250 Z" fill="#D6CEC3"/>
+        <ellipse cx="320" cy="262" rx="48" ry="30" fill="#8C7F74"/>
+      </g>
+      <line x1="300" y1="80" x2="300" y2="840" stroke="#9C86F0" stroke-width="2" stroke-dasharray="2 10" opacity=".7"/>
+      <g stroke="#A3A7AD" stroke-width="1.6" fill="#A3A7AD">
+        <line x1="760" y1="400" x2="260" y2="430"/><circle cx="760" cy="400" r="5"/>
+        <line x1="845" y1="480" x2="260" y2="520"/><circle cx="845" cy="480" r="5"/>
+      </g>
+      <g fill="#E6E5E0" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="24" text-anchor="end">
+        <text x="250" y="438">Corpus callosum</text><text x="250" y="528">Thalamus</text>
+      </g>
+      <text x="96" y="820" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="20">Midsagittal section · drag or ←/→ to move the cut</text>
+    </svg>
+    <figcaption>2b · Section sweep. A cutting plane moves through the brain on the midline; interior structures are labelled from the left margin.</figcaption>
+  </figure>
+  <dl class="spec">
+    <dt>Camera</dt><dd>In: orbit from scene 1's three-quarter view to the left lateral view (about 3 s). 2a locked. 2a→2b: orbit to the medial side while the section plane sweeps in (about 3.5 s), then locked.</dd>
+    <dt>Object</dt><dd>Brain left of centre in 2a (labels right), right of centre in 2b (labels left), so the composition changes sides with the reveal.</dd>
+    <dt>Lighting</dt><dd>Lower, more raking key than scene 1 to model the gyri and sulci; white matter in the cut is lit flatter so it reads as a cut surface.</dd>
+    <dt>Type</dt><dd>Title, up to 6 labels, view name, short hint for the section control.</dd>
+    <dt>Explore</dt><dd>Orbit (limited to the upper hemisphere of views), zoom within limits, tap or Tab to select a structure (dims the rest, violet edge, margin description), section plane control, reset (R), exit (Esc) returns to 2a or 2b exactly.</dd>
+    <dt>Science</dt><dd>Scientific: lobe boundaries, structure positions and names, functions at textbook level. Artistic: selection colour. Open question: which structures exist as separate meshes in the verified asset.</dd>
+  </dl>
+
+  <!-- SCENE 3 -->
+  <h2>3 · The Neural Network</h2>
+  <p>How a neuron signals: three beats in one step, advanced by the same next control.</p>
+  <figure>
+    <svg class="frame" viewBox="0 0 1600 900" role="img" aria-label="Scene 3 beat one: reconstructed neuron">
+      <rect width="1600" height="900" fill="#07080A"/>
+      <g transform="translate(140,120) scale(0.9)">
+      <g fill="none" stroke="#C9C1B8" stroke-linecap="round">
+        <path d="M430,330 C380,250 330,200 260,150" stroke-width="5"/>
+        <path d="M330,205 C300,170 280,120 290,80" stroke-width="3"/>
+        <path d="M430,330 C420,240 450,170 470,90" stroke-width="5"/>
+        <path d="M455,170 C500,140 540,130 580,90" stroke-width="3"/>
+        <path d="M430,330 C360,330 300,350 220,330" stroke-width="4"/>
+        <path d="M290,340 C260,380 240,410 200,430" stroke-width="2.5"/>
+        <path d="M430,330 C380,380 350,420 330,480" stroke-width="3.5"/>
+        <path d="M440,345 C600,420 800,520 1000,600 C1100,640 1200,680 1330,720" stroke-width="4"/>
+        <path d="M1330,720 C1370,700 1400,690 1440,700" stroke-width="2.5"/>
+        <path d="M1330,720 C1360,750 1380,780 1420,800" stroke-width="2.5"/>
+        <path d="M1330,720 C1390,730 1420,740 1460,760" stroke-width="2.5"/>
+      </g>
+      <circle cx="435" cy="335" r="22" fill="#C9C1B8"/>
+      <g fill="#E6E5E0" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="24">
+        <text x="480" y="372">Cell body</text><text x="120" y="290">Dendrites</text><text x="1020" y="580">Axon</text><text x="1300" y="840">Axon terminals</text>
+      </g>
+      </g>
+      <text x="96" y="110" fill="#E6E5E0" font-family="Newsreader, Georgia, serif" font-size="54">The neural network</text>
+      <text x="96" y="160" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="22">A real neuron, reconstructed from microscopy data</text>
+      <line x1="96" y1="800" x2="236" y2="800" stroke="#E6E5E0" stroke-width="2"/>
+      <text x="96" y="830" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="18">Scale bar from the reconstruction · Source credited on screen</text>
+      <text x="1480" y="80" fill="#A3A7AD" text-anchor="end" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="18">3 of 5</text>
+    </svg>
+    <figcaption>3a · The neuron. Arrived at by a descent into the cortex and a cross-exposure cut (scale change).</figcaption>
+  </figure>
+  <figure>
+    <svg class="frame" viewBox="0 0 1600 900" role="img" aria-label="Scene 3 beat two: electrical signal along the axon">
+      <rect width="1600" height="900" fill="#07080A"/>
+      <path d="M100,300 C400,380 700,500 1000,600 C1150,650 1300,700 1500,760" fill="none" stroke="#5E5751" stroke-width="10" stroke-linecap="round"/>
+      <path d="M560,455 C700,505 800,540 900,570" fill="none" stroke="#9C86F0" stroke-width="10" stroke-linecap="round" opacity=".35"/>
+      <path d="M820,545 C860,558 880,563 900,570" fill="none" stroke="#9C86F0" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="900" cy="570" r="16" fill="#9C86F0"/>
+      <path d="M1180,664 l40,14 -40,14" fill="none" stroke="#A3A7AD" stroke-width="3"/>
+      <text x="96" y="160" fill="#E6E5E0" font-family="Newsreader, Georgia, serif" font-size="46">An electrical signal travels along the axon</text>
+      <text x="96" y="210" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="22">Explanation from the fact register</text>
+      <text x="96" y="820" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="20">Slowed down · Illustrative colour</text>
+    </svg>
+    <figcaption>3b · The signal. The camera travels alongside the axon at a low angle while the presenter-triggered signal passes; then holds.</figcaption>
+  </figure>
+  <figure>
+    <svg class="frame" viewBox="0 0 1600 900" role="img" aria-label="Scene 3 beat three: synapse">
+      <rect width="1600" height="900" fill="#07080A"/>
+      <path d="M560,200 C560,380 650,470 800,476 C950,470 1040,380 1040,200 Z" fill="#5E5751"/>
+      <path d="M500,880 C500,660 620,570 800,570 C980,570 1100,660 1100,880 Z" fill="#4A4540"/>
+      <g fill="#E3A857">
+        <circle cx="730" cy="360" r="17"/><circle cx="800" cy="335" r="17"/><circle cx="870" cy="368" r="17"/>
+        <circle cx="790" cy="410" r="17" opacity=".6"/>
+        <circle cx="755" cy="515" r="6"/><circle cx="795" cy="528" r="6"/><circle cx="835" cy="510" r="6"/><circle cx="860" cy="535" r="6"/><circle cx="775" cy="545" r="6"/>
+      </g>
+      <g fill="#C9C1B8">
+        <rect x="712" y="563" width="14" height="20"/><rect x="772" y="563" width="14" height="20"/><rect x="832" y="563" width="14" height="20"/><rect x="892" y="563" width="14" height="20"/>
+      </g>
+      <g stroke="#A3A7AD" stroke-width="1.6" fill="#A3A7AD">
+        <line x1="1030" y1="260" x2="1180" y2="260"/><line x1="887" y1="368" x2="1180" y2="350"/>
+        <line x1="860" y1="535" x2="1180" y2="470"/><line x1="906" y1="572" x2="1180" y2="580"/><line x1="1080" y1="760" x2="1180" y2="720"/>
+      </g>
+      <g fill="#E6E5E0" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="24">
+        <text x="1192" y="268">Axon terminal</text><text x="1192" y="358">Vesicles</text><text x="1192" y="478">Neurotransmitter</text><text x="1192" y="588">Receptors</text><text x="1192" y="728">Next neuron</text>
+      </g>
+      <text x="96" y="110" fill="#E6E5E0" font-family="Newsreader, Georgia, serif" font-size="46">At the synapse, the signal becomes chemical</text>
+      <text x="96" y="820" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="20">Simplified · Not to scale · Illustrative colour</text>
+    </svg>
+    <figcaption>3c · The synapse. A cross-exposure cut from the axon terminal; vesicles release neurotransmitter (amber) across the gap to receptors.</figcaption>
+  </figure>
+  <dl class="spec">
+    <dt>Camera</dt><dd>In: from scene 2's view, the camera descends toward the cortex surface (real move, shallow depth of field), then a cross-exposure cut to the neuron (about 4 s). 3a locked, wide. 3b: low travelling shot alongside the axon during the signal (about 3 s), then locked. 3c: cross-exposure to the synapse, slow push-in, locked.</dd>
+    <dt>Object</dt><dd>3a: neuron on a diagonal from upper left (dendrites) to lower right (terminals), using depth: dendrites nearer, axon receding. 3c: terminal above, next neuron below, gap at the optical centre.</dd>
+    <dt>Lighting</dt><dd>Soft top key on membranes, deep black surround, no fog. The signal is the only light source that moves. Amber appears only at release.</dd>
+    <dt>Type</dt><dd>One heading per beat, short explanation, up to 5 labels, artistic disclaimers, data credit.</dd>
+    <dt>Explore</dt><dd>Limited orbit around the neuron in 3a (±40°), zoom limits, reset. No selection.</dd>
+    <dt>Science</dt><dd>Scientific: real morphology, direction of signal, order of synaptic events, structure names. Artistic: glow, colours, slowed timing, synapse geometry (simplified), scale cut. All marked on screen.</dd>
+  </dl>
+
+  <!-- SCENE 4 -->
+  <h2>4 · Memory &amp; Emotion</h2>
+  <p>Memory and emotion as networks of structures working together, not single centres.</p>
+  <figure>
+    <svg class="frame" viewBox="0 0 1600 900" role="img" aria-label="Scene 4 teaching frame: translucent cortex with deep structures">
+      <rect width="1600" height="900" fill="#15171B"/>
+      <g transform="translate(560,170) scale(1.2)">
+        <use href="#brain-lat" width="660" height="460" fill="#A89A8E" fill-opacity=".14" stroke="#A89A8E" stroke-opacity=".5" stroke-width="2"/>
+        <path d="M200,140 C160,170 130,210 140,250" fill="none" stroke="#9C86F0" stroke-width="3" opacity=".8"/>
+        <path d="M140,250 C220,300 300,310 360,290" fill="none" stroke="#9C86F0" stroke-width="3" opacity=".8"/>
+        <path d="M230,300 C260,280 300,262 340,262 C380,262 400,282 405,300 C385,292 360,288 335,292 C300,298 265,306 230,300 Z" fill="#A391BA" stroke="#9C86F0" stroke-width="2.5"/>
+        <ellipse cx="212" cy="300" rx="18" ry="13" fill="#A89A8E" stroke="#E6E5E0" stroke-width="2"/>
+        <path d="M70,190 C90,130 140,95 200,80 L220,140 C170,150 120,180 100,220 Z" fill="#A89A8E" fill-opacity=".45" stroke="#E6E5E0" stroke-width="2"/>
+      </g>
+      <g stroke="#A3A7AD" stroke-width="1.6" fill="#A3A7AD">
+        <line x1="900" y1="514" x2="380" y2="430"/><circle cx="900" cy="514" r="5"/>
+        <line x1="814" y1="530" x2="380" y2="520"/><circle cx="814" cy="530" r="5"/>
+        <line x1="720" y1="330" x2="380" y2="340"/><circle cx="720" cy="330" r="5"/>
+      </g>
+      <g fill="#E6E5E0" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="24" text-anchor="end">
+        <text x="370" y="348">Prefrontal cortex</text><text x="370" y="438">Hippocampus</text><text x="370" y="528">Amygdala</text>
+      </g>
+      <text x="96" y="110" fill="#E6E5E0" font-family="Newsreader, Georgia, serif" font-size="54">Memory &amp; emotion</text>
+      <text x="96" y="160" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="22">Networks of structures working together</text>
+      <text x="96" y="820" fill="#A3A7AD" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="20">Left oblique view · Cortex shown translucent (simplified) · Explore (E)</text>
+      <text x="1480" y="80" fill="#A3A7AD" text-anchor="end" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="18">4 of 5</text>
+    </svg>
+    <figcaption>4 · Teaching frame. Translucent cortex; deep structures inside; simplified connection paths in violet.</figcaption>
+  </figure>
+  <dl class="spec">
+    <dt>Camera</dt><dd>In: cross-exposure from the synapse back to the whole brain, then a slow arc from posterior to left oblique while the cortex fades to translucent (about 4 s). Locked for teaching.</dd>
+    <dt>Object</dt><dd>Brain right of centre, labels left; deep structures at the optical centre of the brain, visible through the cortex.</dd>
+    <dt>Lighting</dt><dd>Key from behind and above to give the translucent cortex a rim; deep structures lit from the front so they read solid.</dd>
+    <dt>Type</dt><dd>Title, one statement, 3–5 labels, disclaimers.</dd>
+    <dt>Explore</dt><dd>Orbit, zoom, select a structure to see its role (dims the rest), toggle connection paths, reset, exit restores the frame.</dd>
+    <dt>Science</dt><dd>Scientific: structure positions and roles as networks. Artistic: translucency, path colour, simplified routes (labelled "Simplified pathways"). Paths only where a real anatomical connection is sourced.</dd>
+  </dl>
+
+  <!-- SCENE 5 -->
+  <h2>5 · The Human Mind</h2>
+  <p>The synthesis: the one light scene. Exposure rises, and the brain becomes a drawing where everything from the journey is legible at once.</p>
+  <figure>
+    <svg class="frame" viewBox="0 0 1600 900" role="img" aria-label="Scene 5: line-work brain on light plate">
+      <rect width="1600" height="900" fill="#E6E5E0"/>
+      <g transform="translate(560,160) scale(1.25)">
+        <use href="#brain-lat" width="660" height="460" fill="none" stroke="#1E2024" stroke-width="2.4"/>
+        <use href="#brain-sulci" width="660" height="460" stroke="#1E2024"/>
+        <path d="M230,300 C260,280 300,262 340,262 C380,262 400,282 405,300 C385,292 360,288 335,292 C300,298 265,306 230,300 Z" fill="none" stroke="#5B3FB0" stroke-width="3"/>
+      </g>
+      <g stroke="#5A5E64" stroke-width="1.4">
+        <line x1="760" y1="300" x2="420" y2="300"/><line x1="680" y1="390" x2="420" y2="390"/><line x1="900" y1="522" x2="420" y2="480"/>
+      </g>
+      <g fill="#1E2024" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="22" text-anchor="end">
+        <text x="410" y="306">Lobes</text><text x="410" y="396">Neurons and synapses</text><text x="410" y="486">Memory and emotion networks</text>
+      </g>
+      <text x="96" y="130" fill="#1E2024" font-family="Newsreader, Georgia, serif" font-size="60">The human mind</text>
+      <text x="96" y="180" fill="#5A5E64" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="22">One closing statement connecting the journey</text>
+      <text x="96" y="820" fill="#5A5E64" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="18">Sources and credits (C) · Return to start (Home)</text>
+      <text x="1480" y="80" fill="#5A5E64" text-anchor="end" font-family="Atkinson Hyperlegible Next, system-ui, sans-serif" font-size="18">5 of 5</text>
+    </svg>
+    <figcaption>5 · Final frame. Tissue rendering gives way to ink line work on the lit plate; violet marks the thread of the journey.</figcaption>
+  </figure>
+  <dl class="spec">
+    <dt>Camera</dt><dd>In: the ground rises from charcoal to plate while the camera pulls back and arcs to a calm lateral view (about 4 s). Locked.</dd>
+    <dt>Object</dt><dd>Brain right of centre, larger margin on the left for the synthesis labels; the scene 1 contours return as line work, closing the loop.</dd>
+    <dt>Lighting</dt><dd>No dramatic light: a lit plate. The 3D model is drawn as outline and contour lines (rendered from the real geometry, not a flat image).</dd>
+    <dt>Type</dt><dd>Title, one closing statement, three synthesis labels, credits access.</dd>
+    <dt>Explore</dt><dd>Not available; the final scene is a summary. A sources and credits panel opens from here.</dd>
+    <dt>Science</dt><dd>Scientific: the same geometry as before. Artistic: line rendering, violet thread.</dd>
+  </dl>
+
+  <h2>Mobile and projector notes</h2>
+  <p>Portrait screens: the margin column moves below the subject, labels become a list below the model where tapping a name highlights its structure, and teaching frames use their own camera framings. Projectors (1920×1080): all text at least 22 px at that size, no meaningful detail below the darkest tissue tones, and labels never placed over the subject.</p>
+</main>
+</body>
+</html>

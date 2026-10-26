@@ -25,9 +25,12 @@ Alternatively, upload the documents and model files.
 | S4 | Kandel et al., *Principles of Neural Science* (current edition) | Standard textbook | Cross-check for scenes 3–4 | Candidate; needs a copy |
 | S5 | FIPAT, *Terminologia Neuroanatomica* | Naming standard | Consistent structure names | Candidate, not opened |
 | S6 | Allen Institute, Human Brain Atlas | Reference atlas | Anatomical checks for models | Candidate, not opened |
-| S7 | BodyParts3D README (DBCLS) | Asset licence | Licence and credit line | Snippet only ([link](https://dbarchive.biosciencedbc.jp/data/bodyparts3d/20110915/README_e.html)) |
-| S8 | NeuroMorpho.Org terms of use | Asset licence | Neuron reconstruction licence and citation | Not found in snippets |
-| S9 | Tel Aviv University neuroanatomy course | Asset source | Photogrammetry models of real brains | Snippet only ([link](https://www.neuroanatomy.sites.tau.ac.il/about)) |
+| S7 | BodyParts3D licence page (DBCLS archive) | Asset licence | Current licence: reportedly CC BY 4.0 with a required credit line | Snippet only ([link](https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html)) |
+| S7a | BodyParts3D 2011 README (v3.0 era) | Asset licence | Older licence: CC BY-SA 2.1 Japan | Snippet only ([link](https://dbarchive.biosciencedbc.jp/data/bodyparts3d/20110915/README_e.html)) |
+| S7b | BodyParts3D download page | Asset data | 4.0 OBJ sets and parts lists | Snippet only ([link](https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html)) |
+| S8 | NeuroMorpho.Org terms of use | Asset licence | Reportedly CC BY 4.0; citation of original papers, the repository (RRID:SCR_002145) and a 2024 paper | Snippet only ([link](https://www.neuromorpho.org/useterm.jsp)) |
+| S9 | Tel Aviv University neuroanatomy 3D models | Asset source | Photogrammetry of real brains; reportedly CC BY-NC-ND 4.0 | Snippet only ([link](https://www.neuroanatomy.sites.tau.ac.il/3d-models)) |
+| S9a | Aridan et al., 2024, *Anatomical Sciences Education*, photogrammetry brain models | Peer-reviewed paper | Credibility of the TAU models | Snippet only ([PubMed](https://pubmed.ncbi.nlm.nih.gov/37997182/)) |
 
 Textbook entries S3–S5 are listed from general knowledge as standard references for this
 level; their editions and access have not been checked.
