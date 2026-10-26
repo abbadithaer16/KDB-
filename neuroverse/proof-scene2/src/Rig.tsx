@@ -26,7 +26,7 @@ const TAN = Math.tan((13 * Math.PI) / 180) // half of the 26° vertical field of
 function pose(view: View, aspect: number) {
   const portrait = aspect < 0.9
   const frame = portrait
-    ? { cx: 0.5, cy: 0.43, fracH: 0.36, maxW: 0.78 }
+    ? { cx: 0.5, cy: 0.45, fracH: 0.3, maxW: 0.74 }
     : view === 'lateral'
       ? { cx: 0.52, cy: 0.585, fracH: 0.52, maxW: 0.42 }
       : { cx: 0.53, cy: 0.575, fracH: 0.56, maxW: 0.42 }
@@ -127,7 +127,7 @@ export function Rig() {
       target={[rig.tx, rig.ty, 0]}
       enablePan={false}
       enableDamping={!reducedMotion}
-      minDistance={2.4}
+      minDistance={rig.dist * 0.6}
       maxDistance={rig.dist * 1.6}
     />
   ) : null

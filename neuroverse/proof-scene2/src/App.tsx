@@ -26,6 +26,9 @@ function Lights() {
   )
 }
 
+/** Touch screens: lower DPR cap (CLAUDE.md: 1.5 on mobile) and touch-specific hints. */
+const COARSE = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
+
 const VIEW_COPY = {
   lateral: { caption: 'Left lateral view', action: 'Show midline section' },
   section: { caption: 'Midsagittal section, seen from the left', action: 'Return to lateral view' },
@@ -68,7 +71,7 @@ export function App() {
       <Canvas
         className="canvas"
         aria-hidden="true"
-        dpr={[1, 2]}
+        dpr={[1, COARSE ? 1.5 : 2]}
         camera={{ fov: 26, near: 0.1, far: 50, position: [0, 0, 4.2] }}
         gl={{ antialias: true, localClippingEnabled: true, toneMapping: AgXToneMapping, toneMappingExposure: 1.05 }}
       >
@@ -94,50 +97,58 @@ export function App() {
         <span>2 of 5</span>
       </nav>
 
-      {(['left', 'right'] as const).map((column) => {
-        const items = labels.filter((l) => l.column === column)
-        if (!items.length) return null
-        return (
-          <ul
-            key={`${view}-${column}`}
-            className={`labels labels--${column} ${transitioning || explore || !ready ? 'is-hidden' : ''}`}
-            aria-label={column === 'left' ? 'Labelled structures' : 'More labelled structures'}
-          >
-            {items.map((l) => (
-              <li key={`${view}-${l.id}`}>
-                <button
-                  ref={(el) => { labelRefs[l.id] = el }}
-                  aria-pressed={selected === l.id}
-                  className={selected === l.id ? 'is-on' : selected ? 'is-off' : ''}
-                  onClick={() => ui.set({ selected: selected === l.id ? null : l.id })}
-                >
-                  {l.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        )
-      })}
+      {/* Desktop: children keep their own absolute positions. Phones: one stacked dock. */}
+      <div className="dock">
+        {(['left', 'right'] as const).map((column) => {
+          const items = labels.filter((l) => l.column === column)
+          if (!items.length) return null
+          return (
+            <ul
+              key={`${view}-${column}`}
+              className={`labels labels--${column} ${transitioning || explore || !ready ? 'is-hidden' : ''}`}
+              aria-label={column === 'left' ? 'Labelled structures' : 'More labelled structures'}
+            >
+              {items.map((l) => (
+                <li key={`${view}-${l.id}`}>
+                  <button
+                    ref={(el) => { labelRefs[l.id] = el }}
+                    aria-pressed={selected === l.id}
+                    className={selected === l.id ? 'is-on' : selected ? 'is-off' : ''}
+                    onClick={() => ui.set({ selected: selected === l.id ? null : l.id })}
+                  >
+                    {l.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )
+        })}
 
-      <footer className="controls">
-        <p className="caption">{VIEW_COPY[view].caption}</p>
-        {selected && <p className="caption note">Highlight colour is illustrative</p>}
-        <div className="buttons">
-          <button onClick={toggleView} disabled={explore}>{VIEW_COPY[view].action} <kbd>S</kbd></button>
-          <button onClick={toggleExplore} aria-pressed={explore}>{explore ? 'Leave explore' : 'Explore'} <kbd>E</kbd></button>
-          {explore && <button onClick={() => window.dispatchEvent(new Event('neuroverse:reset'))}>Reset view <kbd>R</kbd></button>}
-        </div>
-      </footer>
+        <footer className="controls">
+          <p className="caption">{VIEW_COPY[view].caption}</p>
+          {selected && <p className="caption note">Highlight colour is illustrative</p>}
+          {explore ? (
+            <p className="caption note">{COARSE ? 'Drag with one finger to rotate. Pinch to zoom.' : 'Drag to rotate. Scroll to zoom.'}</p>
+          ) : (
+            COARSE && !selected && <p className="caption hint">Tap a structure to highlight it, or Explore to rotate.</p>
+          )}
+          <div className="buttons">
+            <button onClick={toggleView} disabled={explore}>{VIEW_COPY[view].action} <kbd>S</kbd></button>
+            <button onClick={toggleExplore} aria-pressed={explore}>{explore ? 'Leave explore' : 'Explore'} <kbd>E</kbd></button>
+            {explore && <button onClick={() => window.dispatchEvent(new Event('neuroverse:reset'))}>Reset view <kbd>R</kbd></button>}
+          </div>
+        </footer>
 
-      <p className="credit">
-        Brain model adapted from{' '}
-        <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/" target="_blank" rel="noreferrer">BodyParts3D</a>,
-        © The Database Center for Life Science, licensed under{' '}
-        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a> and{' '}
-        <a href="https://creativecommons.org/licenses/by-sa/2.1/jp/" target="_blank" rel="noreferrer">CC BY-SA 2.1 JP</a>.{' '}
-        <a href={`${import.meta.env.BASE_URL}models/ATTRIBUTION.md`} target="_blank" rel="noreferrer">Changes and details</a>.
-        {' '}Proof, not production.
-      </p>
+        <p className="credit">
+          Brain model adapted from{' '}
+          <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/" target="_blank" rel="noreferrer">BodyParts3D</a>,
+          © The Database Center for Life Science, licensed under{' '}
+          <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a> and{' '}
+          <a href="https://creativecommons.org/licenses/by-sa/2.1/jp/" target="_blank" rel="noreferrer">CC BY-SA 2.1 JP</a>.{' '}
+          <a href={`${import.meta.env.BASE_URL}models/ATTRIBUTION.md`} target="_blank" rel="noreferrer">Changes and details</a>.
+          {' '}Proof, not production.
+        </p>
+      </div>
 
       {!ready && <p className="loading" role="status">Loading the brain model</p>}
       <p className="sr-only" aria-live="polite">

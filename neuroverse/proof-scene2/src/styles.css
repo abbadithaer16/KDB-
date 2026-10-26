@@ -72,20 +72,33 @@ kbd { font: inherit; font-size: 12px; color: var(--mist); margin-left: 6px; }
 button:focus-visible { outline: 2px solid var(--violet); outline-offset: 4px; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-/* Portrait and phones: labels become a wrapped list under the subject; leader lines hidden. */
+/* Portrait and phones: labels, captions, buttons and credit form one stack at the bottom
+   (no overlaps whatever the caption count); leader lines hidden. */
+.dock { display: contents; }
 @media (max-aspect-ratio: 9/10), (max-width: 760px) {
   .leaders { display: none; }
-  .statement { font-size: 16px; }
-  .labels, .labels--left, .labels--right, .view-section .labels--left {
-    top: auto; transform: none; left: var(--left); right: var(--right); bottom: calc(var(--bottom) + 150px);
-    display: flex; flex-wrap: wrap; gap: 8px 16px;
+  h1 { font-size: clamp(28px, 8vw, 40px); }
+  .wordmark { margin-bottom: 14px; }
+  .statement { font-size: 15px; margin-top: 10px; }
+  .dock {
+    display: flex; flex-direction: column; gap: 14px;
+    position: absolute; left: var(--left); right: var(--right);
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
   }
-  .labels--left:has(+ .labels--right) { bottom: calc(var(--bottom) + 186px); }
+  .dock .labels, .dock .controls, .dock .credit {
+    position: static; transform: none; inset: auto; max-width: none; text-align: left;
+  }
+  .dock .labels { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+  .dock .labels + .labels { margin-top: -10px; }
   .labels button { font-size: 16px; text-align: left; border: 0; border-bottom: 2px solid transparent; padding: 4px 0; }
   .labels button.is-on { border-color: var(--violet); }
-  .controls { bottom: calc(var(--bottom) + 30px); }
-  .credit { left: var(--left); right: var(--right); bottom: calc(10px + env(safe-area-inset-bottom, 0px)); text-align: left; font-size: 11px; line-height: 1.35; }
+  .caption { font-size: 14px; }
+  .buttons { margin-top: 10px; }
+  .buttons button { padding: 11px 14px; }
+  .credit { font-size: 11px; line-height: 1.35; }
   .progress { top: calc(var(--top) + 2px); }
+  .statement { transition: opacity 0.3s; }
+  .is-exploring .statement { opacity: 0; } /* zoomed brain may cover it */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -95,3 +108,8 @@ button:focus-visible { outline: 2px solid var(--violet); outline-offset: 4px; }
 .credit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .credit a:hover { color: var(--plate); }
 .credit a:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
+
+/* Touch: no double-tap zoom delay on controls, no grey tap flash, no keyboard hints. */
+button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.caption.hint { color: var(--mist); }
+@media (pointer: coarse) { kbd { display: none; } }
