@@ -103,10 +103,23 @@ project's architecture.
 |---|---|
 | Art direction and checkpoints 1–4 | `cinematic-ui` (primary workflow), `frontend-design` (taste, type, copy) |
 | Design review of mockups, scenes and builds | `design-design-critique`, then `frontend-design` self-critique |
-| 3D scenes | `threejs-r3f`, `threejs-scene`, `threejs-materials`, `threejs-lighting`, `threejs-animation`, `threejs-interaction` |
-| Motion | `gsap-core`, `gsap-timeline`, `gsap-react`, `gsap-plugins` |
+| Planning a 3D build and choosing specialist skills | `threejs-web` (its routing guide) |
+| React Three Fiber architecture | `threejs-r3f`, `threejs-html` (canvas in the page, overlays, labels anchored to 3D points) |
+| Scenes, cameras, framing, resize | `threejs-scene` |
+| Models, GLB optimisation, loading | `threejs-assets`, `threejs-geometry` (procedural meshes, instancing) |
+| Materials and lighting | `threejs-materials`, `threejs-lighting` |
+| Custom shaders | `threejs-shaders` |
+| Clipping, section planes, measurements | `threejs-spatial-data` (clipping does not cap cut surfaces by itself) |
+| Postprocessing (bloom, depth of field, AA) | `threejs-postprocessing` |
+| Particles and large repeated data | `threejs-particles` |
+| Interaction, picking, controls | `threejs-interaction`, `threejs-product-viewer` (hotspots, anchors, camera presets) |
+| Accessibility | `threejs-accessibility` |
+| Motion | `gsap-core`, `gsap-timeline`, `gsap-react`, `gsap-plugins`; `threejs-animation` (clips, frame-independent motion, one owner per property) |
 | Performance | `threejs-performance`, `gsap-performance` |
+| Debugging rendering problems | `threejs-debugging` |
 | QA | `threejs-testing` |
+| Build and deployment | `threejs-deployment` |
+| Only when a brief needs them | `threejs-audio`, `threejs-physics`, `threejs-xr`, `threejs-webgpu` (the default stack is WebGL) |
 
 Resolving overlaps:
 - `cinematic-ui` owns the creative process, read through *Original art direction* above:
@@ -117,6 +130,12 @@ Resolving overlaps:
 - Image placeholders use sentence case, not all-caps monospace labels.
 - Do not split work across sub-agents unless the user asks for it.
 - `gsap-scrolltrigger` is not installed; follow the GSAP docs for ScrollTrigger.
+- The checkpoint gates override `threejs-web`'s "build a vertical slice first": no code before
+  checkpoint 4 unless the user approves an exception.
+- Scroll guidance in `threejs-animation` and `threejs-html` applies to Scroll experiences only,
+  never to Presentation experiences.
+- Camera choreography is owned by GSAP timelines; `threejs-animation` governs hand-offs between
+  systems that write the same transform.
 
 ## Visual design standards
 
