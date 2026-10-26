@@ -94,20 +94,30 @@ export function App() {
         <span>2 of 5</span>
       </nav>
 
-      <ul className={`labels ${transitioning || explore || !ready ? 'is-hidden' : ''}`} aria-label="Labelled structures">
-        {labels.map((l) => (
-          <li key={`${view}-${l.id}`}>
-            <button
-              ref={(el) => { labelRefs[l.id] = el }}
-              aria-pressed={selected === l.id}
-              className={selected === l.id ? 'is-on' : selected ? 'is-off' : ''}
-              onClick={() => ui.set({ selected: selected === l.id ? null : l.id })}
-            >
-              {l.name}
-            </button>
-          </li>
-        ))}
-      </ul>
+      {(['left', 'right'] as const).map((column) => {
+        const items = labels.filter((l) => l.column === column)
+        if (!items.length) return null
+        return (
+          <ul
+            key={`${view}-${column}`}
+            className={`labels labels--${column} ${transitioning || explore || !ready ? 'is-hidden' : ''}`}
+            aria-label={column === 'left' ? 'Labelled structures' : 'More labelled structures'}
+          >
+            {items.map((l) => (
+              <li key={`${view}-${l.id}`}>
+                <button
+                  ref={(el) => { labelRefs[l.id] = el }}
+                  aria-pressed={selected === l.id}
+                  className={selected === l.id ? 'is-on' : selected ? 'is-off' : ''}
+                  onClick={() => ui.set({ selected: selected === l.id ? null : l.id })}
+                >
+                  {l.name}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )
+      })}
 
       <footer className="controls">
         <p className="caption">{VIEW_COPY[view].caption}</p>
@@ -120,7 +130,13 @@ export function App() {
       </footer>
 
       <p className="credit">
-        Brain model: BodyParts3D, © The Database Center for Life Science, CC BY 4.0 (modified). Internal proof, not for distribution.
+        Brain model adapted from{' '}
+        <a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/" target="_blank" rel="noreferrer">BodyParts3D</a>,
+        © The Database Center for Life Science, licensed under{' '}
+        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a> and{' '}
+        <a href="https://creativecommons.org/licenses/by-sa/2.1/jp/" target="_blank" rel="noreferrer">CC BY-SA 2.1 JP</a>.{' '}
+        <a href={`${import.meta.env.BASE_URL}models/ATTRIBUTION.md`} target="_blank" rel="noreferrer">Changes and details</a>.
+        {' '}Proof, not production.
       </p>
 
       {!ready && <p className="loading" role="status">Loading the brain model</p>}

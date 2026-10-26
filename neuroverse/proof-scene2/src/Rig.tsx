@@ -28,8 +28,8 @@ function pose(view: View, aspect: number) {
   const frame = portrait
     ? { cx: 0.5, cy: 0.43, fracH: 0.36, maxW: 0.78 }
     : view === 'lateral'
-      ? { cx: 0.43, cy: 0.58, fracH: 0.6, maxW: 0.5 }
-      : { cx: 0.6, cy: 0.58, fracH: 0.6, maxW: 0.5 }
+      ? { cx: 0.52, cy: 0.585, fracH: 0.52, maxW: 0.42 }
+      : { cx: 0.53, cy: 0.575, fracH: 0.56, maxW: 0.42 }
   let hWorld = BRAIN.h / frame.fracH
   if (BRAIN.w / (hWorld * aspect) > frame.maxW) hWorld = BRAIN.w / frame.maxW / aspect
   const wWorld = hWorld * aspect

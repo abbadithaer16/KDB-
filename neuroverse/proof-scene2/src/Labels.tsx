@@ -25,7 +25,7 @@ export function LeaderProjector() {
       const x = (v.current.x * 0.5 + 0.5) * size.width
       const y = (-v.current.y * 0.5 + 0.5) * size.height
       const r = btn.getBoundingClientRect()
-      const onRight = view === 'lateral'
+      const onRight = l.column === 'right'
       line.setAttribute('x1', String(onRight ? r.left - 10 : r.right + 10))
       line.setAttribute('y1', String(r.top + r.height / 2))
       line.setAttribute('x2', String(x))

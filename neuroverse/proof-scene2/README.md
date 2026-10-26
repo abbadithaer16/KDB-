@@ -31,6 +31,10 @@ npm ci
 npm run dev          # or: npm run build && npm run preview
 ```
 
+Vercel: see `VERCEL-PREVIEW.md`. The claude.ai preview is a separate build
+(`VITE_MODEL_B64=1`) that loads the same quantised geometry from base64 text, because that host
+does not serve `.glb` files and may block WebAssembly; its model file is generated, not committed.
+
 ## Rebuild the model
 
 The OBJ source is not committed (136 MB). Download `isa_BP3D_4.0_obj_99.zip` from the
@@ -38,19 +42,25 @@ official page (https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html),
 SHA-256 (`40665852c49f218326590e204db91064a1ecfc3c6f8cbd7bbbcaac62c7cd409e`), unzip, then:
 
 ```bash
-python3 -I pipeline/build_brain.py <unzipped>/isa_BP3D_4.0_obj_99 public/models/brain-s2.glb pipeline/anchors.json
+mkdir -p pipeline/out
+python3 -I pipeline/build_brain.py <unzipped>/isa_BP3D_4.0_obj_99 pipeline/out/brain-s2.raw.glb pipeline/anchors.json
+node pipeline/optimize.mjs pipeline/out/brain-s2.raw.glb public/models/brain-s2.glb 14
 ```
 
-The pipeline merges anatomical parts into regions, welds vertices, computes smooth normals and a
-cavity term, and converts axes. It does not move any vertex.
+`build_brain.py` merges anatomical parts into regions, welds vertices, computes smooth normals
+and a cavity term, and converts axes; it does not move any vertex. `optimize.mjs` reorders,
+quantises (positions 14-bit per mesh, normals 10-bit, cavity 8-bit) and meshopt-compresses the
+file, and reports the size and the largest position change (0.007 mm).
 
 ## Credits and licence
 
-Brain model: **BodyParts3D, © The Database Center for Life Science licensed under CC
-Attribution 4.0 International**, modified (regions merged, vertices welded, normals and cavity
-computed, axes converted). The licence text inside the original 4.0 files states CC
-Attribution-Share Alike 2.1 Japan; see `../docs/asset-verification.md`. Until the licensor
-confirms which applies, `public/models/brain-s2.glb` is also offered under CC BY-SA 2.1 JP.
+Brain model: adapted from **BodyParts3D**, © The Database Center for Life Science, licensed
+under **CC Attribution 4.0 International** (https://creativecommons.org/licenses/by/4.0/) and
+**CC Attribution-Share Alike 2.1 Japan** (https://creativecommons.org/licenses/by-sa/2.1/jp/).
+The licensor's licence page states CC BY 4.0; the licence text inside the original 4.0 files
+states CC BY-SA 2.1 Japan. Until the licensor clarifies, `public/models/brain-s2.glb` and
+`pipeline/anchors.json` are made available under CC BY-SA 2.1 Japan. Source, changes and
+disclaimer: `public/models/ATTRIBUTION.md`; review: `../docs/licence-obligations.md`.
 
 Fonts: Newsreader and Atkinson Hyperlegible Next, SIL Open Font License 1.1.
 GSAP is used under its standard no-charge licence.

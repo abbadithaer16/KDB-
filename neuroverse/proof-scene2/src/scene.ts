@@ -6,31 +6,33 @@ export const TOKENS = {
   greyMatter: '#A89A8E',
   whiteMatter: '#D6CEC3',
   deepNuclei: '#A0948A',
-  dimmed: '#47423F',
+  dimmed: '#2E2B29', // mixed 80% into unselected tissue: 3.5:1 against the selected tint
   violet: '#9C86F0',
   rimViolet: '#8F86B3',
   capGrey: '#8E8178',
   capWhite: '#CFC6BA',
 }
 
-export type LabelDef = { id: string; name: string; regions: string[] }
+export type LabelDef = { id: string; name: string; regions: string[]; column: 'left' | 'right' }
 
 /** Teaching-frame labels per view. Names are BodyParts3D/FMA anatomical terms. */
 export const LABELS: Record<'lateral' | 'section', LabelDef[]> = {
   lateral: [
-    { id: 'frontal', name: 'Frontal lobe', regions: ['frontal'] },
-    { id: 'parietal', name: 'Parietal lobe', regions: ['parietal'] },
-    { id: 'occipital', name: 'Occipital lobe', regions: ['occipital'] },
-    { id: 'temporal', name: 'Temporal lobe', regions: ['temporal'] },
-    { id: 'cerebellum', name: 'Cerebellum', regions: ['cerebellum'] },
-    { id: 'brainstem', name: 'Brainstem', regions: ['brainstem'] },
+    // Anterior structures label from the left margin, posterior ones from the right, so no
+    // leader line has to cross the brain.
+    { id: 'frontal', name: 'Frontal lobe', regions: ['frontal'], column: 'left' },
+    { id: 'temporal', name: 'Temporal lobe', regions: ['temporal'], column: 'left' },
+    { id: 'brainstem', name: 'Brainstem', regions: ['brainstem'], column: 'left' },
+    { id: 'parietal', name: 'Parietal lobe', regions: ['parietal'], column: 'right' },
+    { id: 'occipital', name: 'Occipital lobe', regions: ['occipital'], column: 'right' },
+    { id: 'cerebellum', name: 'Cerebellum', regions: ['cerebellum'], column: 'right' },
   ],
   section: [
-    { id: 'callosum', name: 'Corpus callosum', regions: ['callosum'] },
-    { id: 'thalamus', name: 'Thalamus', regions: ['thalamus'] },
-    { id: 'limbic', name: 'Cingulate gyrus', regions: ['limbic'] },
-    { id: 'cerebellum', name: 'Cerebellum', regions: ['cerebellum'] },
-    { id: 'brainstem', name: 'Brainstem', regions: ['brainstem'] },
+    { id: 'callosum', name: 'Corpus callosum', regions: ['callosum'], column: 'left' },
+    { id: 'thalamus', name: 'Thalamus', regions: ['thalamus'], column: 'left' },
+    { id: 'limbic', name: 'Cingulate gyrus', regions: ['limbic'], column: 'left' },
+    { id: 'cerebellum', name: 'Cerebellum', regions: ['cerebellum'], column: 'right' },
+    { id: 'brainstem', name: 'Brainstem', regions: ['brainstem'], column: 'left' },
   ],
 }
 

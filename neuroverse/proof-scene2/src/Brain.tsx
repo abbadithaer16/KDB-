@@ -1,24 +1,27 @@
 import { useEffect, useMemo } from 'react'
-import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import type { ThreeEvent } from '@react-three/fiber'
 import gsap from 'gsap'
-import { BackSide, Box3, Color, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Raycaster, Vector3 } from 'three'
+import { BackSide, Box3, Color, Matrix4, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Raycaster, Vector3 } from 'three'
 import type { Plane } from 'three'
 import { ui, useUI, reducedMotion } from './state'
+import { useBrainModel } from './model'
 import type { View } from './state'
 import { ANCHOR_TARGETS, GREY_MATTER, LABELS, TOKENS, WHITE, anchorPoints, sectionPlane } from './scene'
 
-const MODEL = `${import.meta.env.BASE_URL}models/brain-s2.glb`
+
 
 type Part = {
   name: string
   region: string
   side: string
   mesh: Mesh
+  /** Node transform from the GLB: quantised positions are decoded by this scale and offset. */
+  matrix: Matrix4
   material: MeshPhysicalMaterial
   base: Color
   cap: MeshBasicMaterial
+  capBase: Color
   outline: MeshBasicMaterial
 }
 
@@ -37,11 +40,13 @@ function tissueMaterial(hex: string, planes: Plane[]) {
 }
 
 /** Inverted hull: back faces pushed out along the normal, drawn in the selection violet. */
-function outlineMaterial(planes: Plane[]) {
+function outlineMaterial(planes: Plane[], localOffset: number) {
   const m = new MeshBasicMaterial({ color: TOKENS.violet, side: BackSide, clippingPlanes: planes, transparent: true, opacity: 0, depthWrite: false })
   m.visible = false
+  // A uniform, not a constant baked into the source: all outline materials share one program.
   m.onBeforeCompile = (s) => {
-    s.vertexShader = s.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n transformed += normal * 0.0045;')
+    s.uniforms.uOutline = { value: localOffset }
+    s.vertexShader = 'uniform float uOutline;\n' + s.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n transformed += normal * uOutline;')
   }
   return m
 }
@@ -71,35 +76,49 @@ function findAnchors(parts: Part[]) {
       const [fx, fy] = ANCHOR_TARGETS[`${view}:${label.id}`] ?? [0.5, 0.5]
       const geo = part.mesh.geometry
       geo.computeBoundingBox()
-      box.copy(geo.boundingBox!)
+      box.copy(geo.boundingBox!).applyMatrix4(part.matrix)
       const tx = box.min.x + fx * (box.max.x - box.min.x)
       const ty = box.min.y + fy * (box.max.y - box.min.y)
       const pos = geo.getAttribute('position')
       const nrm = geo.getAttribute('normal')
       const cands: { i: number; d: number }[] = []
       for (let i = 0; i < pos.count; i++) {
-        if (nrm.getZ(i) < 0.25) continue // must face the viewer (+z)
-        if (view === 'section' && pos.getZ(i) > 0) continue
-        cands.push({ i, d: Math.hypot(pos.getX(i) - tx, pos.getY(i) - ty) })
+        if (nrm.getZ(i) < 0.25) continue // must face the viewer (+z); node transform has no rotation
+        v.fromBufferAttribute(pos, i).applyMatrix4(part.matrix)
+        if (view === 'section' && v.z > 0) continue
+        cands.push({ i, d: Math.hypot(v.x - tx, v.y - ty) })
       }
       cands.sort((a, b) => a.d - b.d)
       let found: Vector3 | undefined
       for (const c of cands.slice(0, 60)) {
-        v.fromBufferAttribute(pos, c.i)
+        v.fromBufferAttribute(pos, c.i).applyMatrix4(part.matrix)
         ray.set(new Vector3(v.x, v.y, 5), new Vector3(0, 0, -1))
         const hits = ray.intersectObjects(occluders, false).filter((h) => view === 'lateral' || h.point.z <= 0)
         if (hits[0]?.object === part.mesh) { found = hits[0].point.clone(); break }
       }
-      if (!found && cands[0]) found = v.fromBufferAttribute(pos, cands[0].i).clone()
+      if (!found && cands[0]) found = v.fromBufferAttribute(pos, cands[0].i).applyMatrix4(part.matrix).clone()
+      // A midline structure is seen as its cut face (drawn by the cap, which has no vertices of
+      // its own): anchor in the middle of the cross-section at the target position instead.
+      if (view === 'section' && part.side === 'mid') {
+        let lo = Infinity, hi = -Infinity
+        for (let i = 0; i < pos.count; i++) {
+          v.fromBufferAttribute(pos, i).applyMatrix4(part.matrix)
+          if (Math.abs(v.x - tx) < 0.02 && Math.abs(v.z) < 0.03 && v.y > box.min.y + 0.5 * (box.max.y - box.min.y)) {
+            lo = Math.min(lo, v.y); hi = Math.max(hi, v.y)
+          }
+        }
+        if (lo < hi) found = new Vector3(tx, (lo + hi) / 2, 0)
+      }
       if (found) anchorPoints[`${view}:${label.id}`] = found
     }
   }
 }
 
 export function Brain() {
-  const gltf = useGLTF(MODEL)
+  const gltf = useBrainModel()
   const parts = useMemo<Part[]>(() => {
     const out: Part[] = []
+    gltf.scene.updateMatrixWorld(true)
     gltf.scene.traverse((o) => {
       if (!(o as Mesh).isMesh) return
       const src = o as Mesh
@@ -109,11 +128,20 @@ export function Brain() {
       const planes = side === 'right' ? [] : [sectionPlane]
       const hex = GREY_MATTER.has(region) ? TOKENS.greyMatter : WHITE.has(region) ? TOKENS.whiteMatter : TOKENS.deepNuclei
       const material = tissueMaterial(hex, planes)
+      const matrix = src.matrixWorld.clone()
+      const mesh = new Mesh(src.geometry, material)
+      mesh.matrixAutoUpdate = false
+      mesh.matrix.copy(matrix)
+      mesh.matrixWorld.copy(matrix) // needed for raycasting before the mesh is mounted
+      // Outline thickness is 4.5 mm-equivalent in world units, whatever the node's scale.
+      const scale = new Vector3().setFromMatrixScale(matrix)
+      const localOffset = 0.0045 / ((scale.x + scale.y + scale.z) / 3)
       out.push({
-        name: src.name, region, side, mesh: new Mesh(src.geometry, material),
+        name: src.name, region, side, mesh, matrix,
         material, base: new Color(hex),
         cap: new MeshBasicMaterial({ color: capColor(region), side: BackSide, clippingPlanes: planes }),
-        outline: outlineMaterial(planes),
+        capBase: new Color(capColor(region)),
+        outline: outlineMaterial(planes, localOffset),
       })
     })
     findAnchors(out)
@@ -147,8 +175,12 @@ export function Brain() {
     const d = reducedMotion ? 0 : 0.45
     for (const p of parts) {
       const on = !!def && def.regions.includes(p.region)
-      const target = !def ? p.base : on ? p.base.clone().lerp(new Color(TOKENS.violet), 0.45) : p.base.clone().lerp(new Color(TOKENS.dimmed), 0.62)
+      const target = !def ? p.base : on ? p.base.clone().lerp(new Color(TOKENS.violet), 0.45) : p.base.clone().lerp(new Color(TOKENS.dimmed), 0.8)
       gsap.to(p.material.color, { r: target.r, g: target.g, b: target.b, duration: d, ease: 'power2.out', overwrite: true })
+      // Cut faces follow the same rule, so a structure seen through its cut (corpus callosum)
+      // also shows its selection.
+      const capTarget = !def ? p.capBase : on ? p.capBase.clone().lerp(new Color(TOKENS.violet), 0.45) : p.capBase.clone().lerp(new Color(TOKENS.dimmed), 0.8)
+      gsap.to(p.cap.color, { r: capTarget.r, g: capTarget.g, b: capTarget.b, duration: d, ease: 'power2.out', overwrite: true })
       if (on) p.outline.visible = true
       gsap.to(p.outline, { opacity: on ? 1 : 0, duration: d, overwrite: true, onComplete: () => { p.outline.visible = on } })
     }
@@ -169,12 +201,11 @@ export function Brain() {
       {parts.map((p) => (
         <group key={p.name}>
           <primitive object={p.mesh} onClick={(e: ThreeEvent<MouseEvent>) => onClick(e, p)} />
-          <mesh geometry={p.mesh.geometry} material={p.cap} raycast={() => null} />
-          <mesh geometry={p.mesh.geometry} material={p.outline} raycast={() => null} renderOrder={-1} />
+          <mesh geometry={p.mesh.geometry} material={p.cap} matrix={p.matrix} matrixAutoUpdate={false} raycast={() => null} />
+          <mesh geometry={p.mesh.geometry} material={p.outline} matrix={p.matrix} matrixAutoUpdate={false} raycast={() => null} renderOrder={-1} />
         </group>
       ))}
     </group>
   )
 }
 
-useGLTF.preload(MODEL)
