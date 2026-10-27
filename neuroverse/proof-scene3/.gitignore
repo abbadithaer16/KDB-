@@ -1,0 +1,6 @@
+node_modules
+dist
+*.tsbuildinfo
+# Neuron data is fetched locally and never committed (see README).
+public/data
+__pycache__

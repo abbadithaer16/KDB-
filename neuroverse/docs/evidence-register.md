@@ -6,6 +6,15 @@ question is treated as settled.
 
 ## 1. Assets by scene
 
+**Update 27 Oct (Scene 3 proof):**
+- The Allen Cell Types candidates are excluded: the Allen Institute's own terms could not be read
+  (sites blocked).
+- The proof uses **NeuroMorpho.Org 290955** (DeKock lab, Mohan et al. 2015, human middle temporal
+  gyrus, layer 2/3), contributed directly to NeuroMorpho.Org under its CC BY 4.0 terms (read in
+  full on 27 Oct).
+- The hemisphere is not recorded.
+- See `scene3-signal-proof.md` and `proof-scene3/ASSETS.md`.
+
 | Asset | Scenes | Source | Licence position (as read) | Verification still required | Approval needed |
 |---|---|---|---|---|---|
 | Brain region meshes (lobes, cerebellum, brainstem, white matter, callosum, thalamus, fornix, limbic) | 1, 2, 4, 5 | BodyParts3D release 4.0, `isa_BP3D_4.0_obj_99.zip`, SHA-256 `40665852…cd409e` | **Unresolved conflict, preserved:** licence page and README (2025-02-27) say **CC BY 4.0**; the text embedded in all 2,234 OBJ files says **CC BY-SA 2.1 Japan**. Both notices are kept on screen and in `ATTRIBUTION.md`. Commercial use and modification are allowed under either | DBCLS clarification (draft in `dbcls-clarification-draft.md`, not sent); CC legal code check (creativecommons.org blocked); anatomical atlas review at the asset gate | The five items in `licence-obligations.md` §5 are still open |
