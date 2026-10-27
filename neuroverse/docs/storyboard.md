@@ -15,6 +15,8 @@ The deliverables are spread across these files:
 | E | Mobile, accessibility and reduced-motion plan | `adaptation-plan.md` |
 | F | Decisions and risks awaiting your approval | `checkpoint3-approvals.md` |
 
+Revisions from the review on 27 Oct (C13–C14, a stronger Scene 2, the Scene 3 signal gate) are in `checkpoint3-revision.md`, which takes precedence where the two differ.
+
 This document replaces `storyboard-draft.html` (Checkpoint 2) wherever they differ. Copy marked
 with a fact ID (for example `[F2.3]`) is a draft from `fact-register.md`. Nothing ships until its
 entry is marked *Checked*.
