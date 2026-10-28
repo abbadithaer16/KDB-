@@ -1,12 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
+import { Bloom, DepthOfField, EffectComposer, N8AO, ToneMapping, Vignette } from '@react-three/postprocessing'
+import { ToneMappingMode } from 'postprocessing'
+import type { DepthOfFieldEffect } from 'postprocessing'
 import gsap from 'gsap'
 import {
   AdditiveBlending,
   CanvasTexture,
-  MeshPhysicalMaterial,
+  Float32BufferAttribute,
+  MathUtils,
   PerspectiveCamera,
-  PointLight,
+  SphereGeometry,
   Sprite,
   SpriteMaterial,
   Vector3,
@@ -15,10 +19,10 @@ import type { NeuronData } from './data'
 import { PathLookup, UM, loadNeuron, nodeArcs } from './data'
 import { myelinGeometry, neuronGeometry } from './geometry'
 import { signalUniforms, tubeMaterial } from './materials'
-import { T, cameraAt, dimAt, frontArc, poses, traceAt } from './choreography'
+import { T, cameraAt, dimAt, focusAt, frontArc, poses, timeForArc, traceAt } from './choreography'
 import type { Pose } from './choreography'
 import { COARSE, DEBUG, reducedMotion, ui } from './state'
-import { anchors, labelEls } from './labels'
+import { anchors, labelEls, scaleBar } from './labels'
 
 /** Timeline time for the whole scene; GSAP writes it, useFrame reads it (one owner). */
 const cine = { t: 0, staticCam: false }
@@ -89,6 +93,16 @@ function haloTexture() {
   return new CanvasTexture(c)
 }
 
+/** The cell body as stored in the file (a sphere), carrying the tube shader's attributes. */
+function somaGeometry(radius: number) {
+  const g = new SphereGeometry(radius, 40, 28)
+  const n = g.getAttribute('position').count
+  g.setAttribute('aRadius', new Float32BufferAttribute(new Float32Array(n), 1))
+  g.setAttribute('aArc', new Float32BufferAttribute(new Float32Array(n).fill(-1), 1))
+  g.setAttribute('aKind', new Float32BufferAttribute(new Float32Array(n), 1))
+  return g
+}
+
 export function Neuron() {
   const [data, setData] = useState<NeuronData | null>(null)
   useEffect(() => {
@@ -99,15 +113,18 @@ export function Neuron() {
 
 function NeuronScene({ data }: { data: NeuronData }) {
   const { camera, size, gl } = useThree()
-  const segments = COARSE ? 6 : 8
+  const segments = COARSE ? 6 : 10
   const path = useMemo(() => new PathLookup(data.path), [data])
   const nodes = useMemo(() => nodeArcs(data), [data])
   const geo = useMemo(() => neuronGeometry(data, segments), [data, segments])
   const myelin = useMemo(() => myelinGeometry(path, nodes, 0.85, segments), [path, nodes, segments])
+  const soma = useMemo(() => somaGeometry(data.soma_radius), [data])
   const mats = useMemo(
     () => ({
-      membrane: tubeMaterial({ color: '#CFC8DA', roughness: 0.5, sheen: 0.6, sheenRoughness: 0.5, sheenColor: '#E9E3F5', clearcoat: 0.25, clearcoatRoughness: 0.4 }, 1.5),
-      myelin: tubeMaterial({ color: '#ECE6DA', roughness: 0.82 }, 3.8),
+      // Soft tissue: warm pale grey, broad sheen, no clearcoat (which read as plastic).
+      membrane: tubeMaterial({ color: '#C8C0BA', roughness: 0.62, sheen: 0.85, sheenRoughness: 0.55, sheenColor: '#E4DCEB' }, COARSE ? 2.0 : 3.0),
+      // Myelin: denser, satin.
+      myelin: tubeMaterial({ color: '#E6DED2', roughness: 0.45, sheen: 0.5, sheenRoughness: 0.35, sheenColor: '#FFFFFF' }, 3.8),
     }),
     [],
   )
@@ -117,9 +134,8 @@ function NeuronScene({ data }: { data: NeuronData }) {
     s.visible = false
     return s
   }, [])
-  const light = useRef<PointLight>(null)
-  const somaMat = useMemo(() => new MeshPhysicalMaterial({ color: '#CFC8DA', roughness: 0.5, sheen: 0.4, sheenColor: '#E9E3F5' }), [])
-  const somaBase = useMemo(() => somaMat.color.clone(), [somaMat])
+  const dof = useRef<DepthOfFieldEffect>(null)
+  const focus = useMemo(() => new Vector3(), [])
 
   // Label anchors (world space), chosen from recorded points.
   useEffect(() => {
@@ -143,43 +159,66 @@ function NeuronScene({ data }: { data: NeuronData }) {
       Object.assign(window, {
         __nv: {
           seek: (t: number) => { tl?.kill(); cine.t = t; cine.staticCam = false; ui.set({ beat: t >= T.arrive ? 'arrived' : t > 0 ? 'signal' : 'neuron' }) },
-          stats: () => ({ calls: gl.info.render.calls, triangles: gl.info.render.triangles, geometries: gl.info.memory.geometries, pathLength: path.length, nodes: nodes.length }),
+          /** Time when the front reaches the k-th recorded branch point on the path. */
+          branchTime: (k: number) => timeForArc(data.path_branch_arcs[k], nodes, path.length),
+          branchArcs: () => data.path_branch_arcs,
+          stats: () => ({ calls: gl.info.render.calls, triangles: gl.info.render.triangles, geometries: gl.info.memory.geometries, pathLength: path.length, nodes: nodes.length, tier: COARSE ? 'mobile' : 'desktop' }),
         },
       })
     }
   }, [data, path, nodes, gl])
 
-  const pose = useMemo<Pose>(() => ({ pos: new Vector3(), target: new Vector3(), fov: 35, up: new Vector3(0, 1, 0) }), [])
-  const front = new Vector3()
+  const pose = useMemo<Pose>(() => ({ pos: new Vector3(), target: new Vector3(), fov: 24, up: new Vector3(0, 1, 0) }), [])
+  const front = useMemo(() => new Vector3(), [])
   useFrame(() => {
     const cam = camera as PerspectiveCamera
+    const t = cine.t
     if (cine.staticCam) {
       pose.pos.copy(P.whole.pos); pose.target.copy(P.whole.target); pose.fov = P.whole.fov; pose.up.set(0, 1, 0)
-    } else cameraAt(cine.t, P, pose)
+    } else cameraAt(t, P, pose)
     cam.position.copy(pose.pos)
     cam.up.copy(pose.up)
     cam.lookAt(pose.target)
     if (cam.fov !== pose.fov) { cam.fov = pose.fov; cam.updateProjectionMatrix() }
     signalUniforms.uPxScale.value = (2 * Math.tan((cam.fov * Math.PI) / 360)) / size.height
 
-    const s = cine.t - T.fire
-    const active = s >= 0 && s <= T.arrive - T.fire + 0.4
-    const arc = active ? frontArc(s, nodes, path.length) : -1
+    // Depth-graded exposure around the subject distance.
+    const dist = cam.position.distanceTo(pose.target)
+    const k = Math.max(0.08 * dist, 0.3)
+    signalUniforms.uDepthNear.value = dist - k
+    signalUniforms.uDepthFar.value = dist + 1.5 * k
+    signalUniforms.uRefDist.value = dist
+
+    const s = t - T.fire
+    const active = s >= 0 && t < T.arrive + 0.3
+    const arrived = t >= T.arrive
+    const arc = active ? frontArc(s, nodes, path.length) : arrived ? path.length : -1
+    const settle = arrived ? MathUtils.smoothstep(t, T.arrive, T.arrive + 2) : 0
     signalUniforms.uFront.value = arc
-    signalUniforms.uTrace.value = traceAt(cine.t)
-    const dim = dimAt(cine.t)
-    signalUniforms.uDim.value = dim
-    somaMat.color.copy(somaBase).multiplyScalar(1 - 0.72 * dim)
-    if (active) {
-      path.at(arc, front)
-      const d = cam.position.distanceTo(front)
+    // At rest the renewed path stays as a fading record of the signal's progress (illustrative).
+    signalUniforms.uGlow.value = MathUtils.lerp(1, 0.95, settle)
+    signalUniforms.uTail.value = MathUtils.lerp(160, 1400, settle)
+    signalUniforms.uPathW.value = MathUtils.lerp(1.6, 2.6, settle)
+    signalUniforms.uTrace.value = traceAt(t) * 0.4
+    signalUniforms.uDim.value = dimAt(t)
+    if (active) path.at(arc, front)
+    else front.copy(P.trigger)
+    signalUniforms.uFrontPos.value.copy(front)
+    signalUniforms.uSigLight.value = active && t < T.arrive ? 1.5 : 0
+    signalUniforms.uSigRadius.value = 0.22
+
+    // The phone tier has no bloom: a small halo marks the front instead.
+    if (COARSE && active && t < T.arrive) {
       halo.position.copy(front)
-      halo.scale.setScalar(d * signalUniforms.uPxScale.value * (COARSE ? 34 : 46))
+      halo.scale.setScalar(cam.position.distanceTo(front) * signalUniforms.uPxScale.value * 34)
       halo.visible = true
-      if (light.current) { light.current.position.copy(front); light.current.intensity = 0.06; light.current.distance = 0.5 }
-    } else {
-      halo.visible = false
-      if (light.current) light.current.intensity = 0
+    } else halo.visible = false
+
+    if (dof.current) {
+      const bokeh = reducedMotion ? 0 : focusAt(t, P, front, focus)
+      dof.current.target = focus
+      dof.current.bokehScale = bokeh
+      dof.current.cocMaterial.worldFocusRange = t <= T.fire ? 0.28 : 0.2
     }
   })
 
@@ -188,13 +227,19 @@ function NeuronScene({ data }: { data: NeuronData }) {
       <group scale={UM}>
         <mesh geometry={geo} material={mats.membrane} frustumCulled={false} />
         <mesh geometry={myelin} material={mats.myelin} frustumCulled={false} />
-        <mesh material={somaMat}>
-          <sphereGeometry args={[data.soma_radius, 32, 24]} />
-        </mesh>
+        <mesh geometry={soma} material={mats.membrane} />
       </group>
       <primitive object={halo} />
-      <pointLight ref={light} color="#9C86F0" intensity={0} decay={2} />
       <LabelProjector />
+      {!COARSE && (
+        <EffectComposer multisampling={4}>
+          <N8AO halfRes screenSpaceRadius aoRadius={22} distanceFalloff={0.8} intensity={2.4} quality="medium" color="#07080A" />
+          <DepthOfField ref={dof} worldFocusRange={0.28} bokehScale={0} resolutionScale={0.75} />
+          <Bloom mipmapBlur luminanceThreshold={0.9} luminanceSmoothing={0.12} intensity={0.5} radius={0.55} />
+          <ToneMapping mode={ToneMappingMode.AGX} />
+          <Vignette offset={0.3} darkness={0.5} />
+        </EffectComposer>
+      )}
     </>
   )
 }
@@ -214,6 +259,13 @@ function LabelProjector() {
       el.dataset.flip = x > size.width * (size.width < 760 ? 0.4 : 0.72) ? '1' : '0'
       const hideTrigger = key === 'trigger' && ui.get().beat === 'signal' && cine.t > T.fire + 0.6
       el.style.visibility = behind || hideTrigger ? 'hidden' : ''
+    }
+    // Scale bar: 100 um at the subject's distance, shown on the resting frames only.
+    if (scaleBar.el) {
+      const cam = camera as PerspectiveCamera
+      const d = cam.position.distanceTo(anchors.soma ?? v.set(0, 0, 0))
+      const px = (1 / (2 * d * Math.tan((cam.fov * Math.PI) / 360))) * size.height
+      scaleBar.el.style.setProperty('--bar', `${px.toFixed(1)}px`)
     }
   })
   return null

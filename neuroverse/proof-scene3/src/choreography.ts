@@ -77,38 +77,60 @@ export function poses(d: NeuronData, path: PathLookup, aspect: number) {
   const portrait = aspect < 0.9
   const az = MathUtils.degToRad(24)
   const el = MathUtils.degToRad(6)
-  // 3a: the dendrites and cell body, with the axon leaving the bottom of the frame.
+  // Opening: a three-quarter "specimen" frame on a 56 mm-equivalent lens; the axon leaves the
+  // bottom of the frame and is revealed in full at the end.
   const neuronBox = dend.clone()
   neuronBox.min.y -= 0.15 * (dend.max.y - dend.min.y)
-  const neuron = fit(neuronBox, aspect, 35, az, el, portrait ? { cx: 0.5, cy: 0.42, frac: 0.6 } : { cx: 0.62, cy: 0.5, frac: 0.8 })
-  // Final frame: the whole recorded cell, so the true length of the path is visible.
-  const whole = fit(all, aspect, 40, az, el, portrait ? { cx: 0.5, cy: 0.4, frac: 0.54 } : { cx: 0.64, cy: 0.5, frac: 0.86 })
+  const openAz = MathUtils.degToRad(50)
+  const neuron = fit(neuronBox, aspect, 30, openAz, MathUtils.degToRad(-10), portrait ? { cx: 0.5, cy: 0.45, frac: 0.6 } : { cx: 0.63, cy: 0.52, frac: 0.84 })
+  // Reveal: the whole recorded cell on a flatter lens, so the true length reads at once.
+  const whole = fit(all, aspect, 30, az, el, portrait ? { cx: 0.5, cy: 0.41, frac: 0.55 } : { cx: 0.64, cy: 0.5, frac: 0.86 })
   const side = new Vector3(Math.sin(az), 0, Math.cos(az))
-  // Hold: a side view of the cell body and the start of the axon, about 440 um across.
+  // Trigger zone: a macro frame from slightly below and to the front, so basal dendrites pass in
+  // the foreground and the cell body sits above the trigger zone.
   const focus = path.at(15)
-  const span = (portrait ? 5.2 : 4.4) / Math.max(aspect, 0.5)
-  const hold: Pose = {
-    target: focus.clone(),
-    pos: focus.clone().addScaledVector(side, span / (2 * Math.tan(MathUtils.degToRad(20)))),
-    fov: 40,
-    up: new Vector3(0, 1, 0),
+  const holdDir = new Vector3(Math.sin(az - 0.5) * Math.cos(-0.17), Math.sin(-0.17), Math.cos(az - 0.5) * Math.cos(-0.17))
+  const holdH = portrait ? 3.2 : 1.7 // frame height in world units (100 um each)
+  const holdDist = holdH / (2 * Math.tan(MathUtils.degToRad(14)))
+  const holdRight = new Vector3().crossVectors(holdDir.clone().negate(), new Vector3(0, 1, 0)).normalize()
+  const holdTarget = focus.clone().addScaledVector(holdRight, portrait ? 0 : -0.13 * holdH * aspect).add(new Vector3(0, portrait ? 0.12 * holdH : 0.04 * holdH, 0))
+  const hold: Pose = { target: holdTarget, pos: holdTarget.clone().addScaledVector(holdDir, holdDist), fov: 28, up: new Vector3(0, 1, 0) }
+  return { neuron, whole, side, path, hold, aspect, trigger: focus }
+}
+
+/** Portrait chase framing (tunable from ?chase=side,lead,lift,back,roll in debug builds). */
+export const CHASE = { pSide: -0.42, pLead: 140, pLift: 0.14, pBack: 20, pRoll: 1.2 }
+if (typeof window !== 'undefined') {
+  const q = new URLSearchParams(window.location.search).get('chase')
+  if (q) {
+    const [pSide, pLead, pLift, pBack, pRoll] = q.split(',').map(Number)
+    Object.assign(CHASE, { pSide, pLead, pLift, pBack, pRoll })
   }
-  return { neuron, whole, side, path, hold, aspect }
 }
 
 const tmpA = new Vector3()
+const tmpT = new Vector3()
+const tmpN = new Vector3()
 
 /**
- * Tracking pose at camera arc `a` (um): behind the front and lifted to one side, looking down the
- * recorded axon so it recedes into depth like a road; the nodes ahead light as the signal reaches
- * them. "Up" for the camera is the lift direction, so the axon runs from the bottom of the frame.
+ * Chase pose at camera arc `a` (um): the camera leads the signal, beside and a little ahead of
+ * it, looking back up the recorded axon. The front comes towards the lens and the nodes it has
+ * renewed recede behind it, so the frame shows both the event and its progression.
  */
-export function trackPose(path: PathLookup, side: Vector3, a: number, out: Pose) {
-  path.at(Math.max(a - 110, 0), tmpA)
-  out.pos.copy(tmpA).addScaledVector(side, 0.24)
-  path.at(a + 150, out.target)
-  out.up.copy(side)
-  out.fov = 40
+export function trackPose(path: PathLookup, side: Vector3, a: number, out: Pose, portrait = false) {
+  path.tangent(Math.max(a, 60), 90, tmpT)
+  tmpN.crossVectors(tmpT, side).normalize()
+  // Landscape: the camera works from the far side so the near end of the axon falls low right,
+  // away from the text column. Portrait: the front is kept at the centre of the frame.
+  const s = portrait ? CHASE.pSide : -0.42
+  path.at(a + (portrait ? CHASE.pLead : 140), tmpA)
+  out.pos.copy(tmpA).addScaledVector(side, s).addScaledVector(tmpN, portrait ? CHASE.pLift : 0.14)
+  path.at(Math.max(a - (portrait ? CHASE.pBack : 40), 0), out.target)
+  // Roll so the axon crosses the frame on a diagonal (landscape: near end low right, clear of
+  // the text column) rather than running to a vanishing point.
+  const roll = portrait ? CHASE.pRoll : 0.55
+  out.up.copy(tmpN).multiplyScalar(Math.cos(roll)).addScaledVector(side, Math.sin(roll)).normalize()
+  out.fov = 30
   return out
 }
 
@@ -148,8 +170,10 @@ export function cameraAt(
 ) {
   const L = P.path.length
   // The camera travels at the front's average speed, lagging 0.3 s, eased in at the start.
-  const s = t - T.fire - 0.3
+  // The camera leads at the front's average speed, eased in at the start.
+  const s = t - T.fire
   const camArc = s <= 0 ? 0 : (L * (s - 0.6 * (1 - Math.exp(-s / 0.6)))) / SIGNAL_S
+  const portrait = P.aspect < 0.9
   let pan = 0 // share of frame width the moving shots are shifted right, clear of the text column
   if (t <= T.toTrigger) {
     blend(P.neuron, P.hold, ease2(clamp01(t / T.toTrigger)), out)
@@ -157,15 +181,15 @@ export function cameraAt(
     blend(P.hold, P.hold, 0, out)
   } else if (t <= T.chase) {
     // The camera swings round behind the signal to follow it.
-    trackPose(P.path, P.side, camArc, scratch)
+    trackPose(P.path, P.side, camArc, scratch, portrait)
     const w = ease2(clamp01((t - T.fire) / (T.chase - T.fire)))
     blend(P.hold, scratch, w, out)
     pan = w
   } else if (t <= T.close) {
-    trackPose(P.path, P.side, camArc, out)
+    trackPose(P.path, P.side, camArc, out, portrait)
     pan = 1
   } else {
-    trackPose(P.path, P.side, camArc, scratch)
+    trackPose(P.path, P.side, camArc, scratch, portrait)
     const w = ease2(clamp01((t - T.close) / (T.pulled - T.close)))
     pullBack(scratch, P.whole, w, out)
     pan = 1 - w
@@ -185,3 +209,38 @@ export const traceAt = (t: number) => (t < T.arrive ? 0 : MathUtils.lerp(1, 0.35
 
 /** Everything except the signal path falls into shadow while the signal is the subject. */
 export const dimAt = (t: number) => (t <= 0.4 ? 0 : t < T.toTrigger ? smooth((t - 0.4) / (T.toTrigger - 0.4)) : t < T.arrive ? 1 : MathUtils.lerp(1, 0.75, smooth(clamp01((t - T.arrive) / 2))))
+
+/**
+ * Depth of field (desktop tier only), as a function of time: none on resting frames; focus on the
+ * trigger zone at the hold and on the signal front during the chase; sharp again before arrival.
+ * Returns the bokeh scale; `focusOut` receives the world focus point.
+ */
+export function focusAt(t: number, P: ReturnType<typeof poses>, front: Vector3, focusOut: Vector3) {
+  if (t <= 0.2 || t >= T.pulled) {
+    focusOut.copy(P.whole.target)
+    return 0
+  }
+  if (t <= T.fire) {
+    focusOut.copy(P.trigger)
+    return 5 * smooth(clamp01((t - 0.2) / (T.toTrigger - 0.2)))
+  }
+  if (t <= T.chase) {
+    const w = smooth(clamp01((t - T.fire) / (T.chase - T.fire)))
+    focusOut.lerpVectors(P.trigger, front, w)
+    return 5 - w
+  }
+  focusOut.copy(front)
+  return t <= T.close ? 4 : 4 * (1 - smooth(clamp01((t - T.close) / (T.pulled - T.close))))
+}
+
+/** Time at which the front first reaches `arc` (for composing stills on a chosen node). */
+export function timeForArc(arc: number, nodes: number[], length: number) {
+  let lo = 0
+  let hi = SIGNAL_S
+  for (let i = 0; i < 40; i++) {
+    const mid = (lo + hi) / 2
+    if (frontArc(mid, nodes, length) >= arc) hi = mid
+    else lo = mid
+  }
+  return T.fire + hi
+}
