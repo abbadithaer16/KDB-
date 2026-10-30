@@ -342,8 +342,8 @@ function computeAnchors(id: string, parts: Part[]) {
   }
   if (id === 'mind') {
     anchors['mind:signals'] = mtgPoint.clone()
-    // Deep limbic structures (thalamus and fornix level), above the neuron's gyrus so the threads never cross.
-    anchors['mind:networks'] = deepCentre.clone().add(new Vector3(0, 0.14, 0))
+    // Deep temporal structures (hippocampal level), below the neuron's gyrus so the threads never cross.
+    anchors['mind:networks'] = deepCentre.clone().add(new Vector3(0, -0.07, 0))
   }
 }
 
