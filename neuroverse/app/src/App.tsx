@@ -99,7 +99,7 @@ function Presentation() {
       if (e.pointerId !== id) return
       id = -1
       const dx = e.clientX - x0, dy = e.clientY - y0
-      if (performance.now() - t0 < 600 && Math.abs(dx) > 60 && Math.abs(dx) > 1.5 * Math.abs(dy)) (dx < 0 ? director.next : director.previous)()
+      if (performance.now() - t0 < 800 && Math.abs(dx) > 60 && Math.abs(dx) > 1.5 * Math.abs(dy)) (dx < 0 ? director.next : director.previous)()
     }
     const cancel = () => { id = -1 }
     window.addEventListener('pointerdown', down)

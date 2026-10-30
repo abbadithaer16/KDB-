@@ -36,7 +36,8 @@ html, body, #root { height: 100%; margin: 0; }
 body { background: var(--ground); color: var(--fg); font: 400 17px/1.5 var(--sans); transition: background-color 0.6s; }
 button { font: inherit; color: inherit; }
 
-.stage { position: fixed; inset: 0; height: 100dvh; overflow: hidden; }
+/* Horizontal swipes belong to the presentation (a pan would cancel the pointer); pinch zoom stays. */
+.stage { position: fixed; inset: 0; height: 100dvh; overflow: hidden; touch-action: pan-y pinch-zoom; }
 .canvas { position: absolute !important; inset: 0; }
 .scrim { position: absolute; inset: 0; pointer-events: none;
   background: linear-gradient(90deg, rgba(var(--scrim), 0.9) 0%, rgba(var(--scrim), 0.62) 26%, rgba(var(--scrim), 0) 42%); }
