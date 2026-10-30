@@ -57,14 +57,14 @@ export const STEPS: StepDef[] = [
       {
         id: 'living-fold-section',
         // F1.1, F1.2
-        statement: 'Lifted along a horizontal cut, the brain shows grey matter folded around the white matter beneath it.',
+        statement: 'Opened along a horizontal cut, the brain shows grey matter folded around the white matter beneath it.',
         caption: 'Horizontal section, computed from the 3D model',
         labels: [
           { key: 'grey', name: 'Grey matter', role: 'The folded cortex' },
           { key: 'white', name: 'White matter', role: 'Fatty, myelinated fibres' },
         ],
         recorded: BRAIN_RECORDED,
-        illustrative: 'the lifted top; cut-surface colours.',
+        illustrative: 'the top opened like a lid; cut-surface colours.',
       },
     ],
   },

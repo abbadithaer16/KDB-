@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import type { ThreeEvent } from '@react-three/fiber'
 import gsap from 'gsap'
-import { Box3, Color, Matrix4, Mesh, Vector3 } from 'three'
+import { Box3, Color, MathUtils, Matrix4, Mesh, Vector3 } from 'three'
 import type { MeshBasicMaterial, MeshPhysicalMaterial, Plane } from 'three'
 import { useBrainModel } from './model'
 import { brainUniforms, outlineMaterial, planes, tissueMaterial } from './materials'
@@ -19,7 +19,10 @@ const WHITE = new Set(['whitematter', 'callosum', 'fornix'])
 
 /** Horizontal cut for the scene 1 lift: 64% of brain height from the bottom. */
 const CUT_Y = -0.87 + 0.64 * BRAIN.h
-const LIFT = 0.3 * BRAIN.h // enough clearance to read the whole cut face from 38° above
+const UP = new Vector3(0, 1, 0)
+const LIFT = 0.03 * BRAIN.h // clearance at the hinge
+const LID = -MathUtils.degToRad(30) // the top opens like a lid, hinged at the occipital pole
+const HINGE_X = BRAIN.cx + BRAIN.w / 2
 /** Scene 2: the left hemisphere moves anterior (screen left in the lateral view) and outwards. */
 const PART = new Vector3(-3.0, 0.15, 1.4)
 
@@ -130,6 +133,9 @@ export function Brain() {
   }, [selected, beat, parts])
 
   const tmp = useMemo(() => new Matrix4(), [])
+  const lid = useMemo(() => new Matrix4(), [])
+  const rot = useMemo(() => new Matrix4(), [])
+  const back = useMemo(() => new Matrix4(), [])
   useFrame(() => {
     const lift = rig.lift
     const part = rig.part
@@ -140,7 +146,11 @@ export function Brain() {
     // Lift: lower part keeps y < cut; the twin keeps the part above the cut and rises with it.
     const liftY = lift * LIFT
     planes.axialLow.constant = lift > 0.001 ? CUT_Y : 1e3
-    planes.axialHigh.constant = lift > 0.001 ? -(CUT_Y + liftY) : 1e3
+    // The lid: rotate about a left-right axis at the back of the cut, then rise slightly. Its
+    // clipping plane is the cut plane carried by the same transform.
+    lid.makeTranslation(HINGE_X, CUT_Y + liftY, 0).multiply(rot.makeRotationZ(LID * lift)).multiply(back.makeTranslation(-HINGE_X, -CUT_Y, 0))
+    if (lift > 0.001) planes.axialHigh.set(UP, -CUT_Y).applyMatrix4(lid)
+    else planes.axialHigh.set(UP, 1e3)
     // Parting: midline parts are split at z = 0; the left half (twin) moves with the left hemisphere.
     const off = PART.clone().multiplyScalar(part)
     planes.midRight.constant = part > 0.001 ? 0 : 1e3
@@ -159,8 +169,8 @@ export function Brain() {
       const twinPart = part > 0.001 && p.side === 'mid'
       p.twin.visible = (twinLift || twinPart) && !(twinPart && hideLeft)
       if (p.twin.visible) {
-        const t = twinLift ? new Vector3(0, liftY, 0) : off
-        p.twin.matrix.copy(tmp.makeTranslation(t.x, t.y, t.z).multiply(p.base))
+        if (twinLift) p.twin.matrix.copy(lid).multiply(p.base)
+        else p.twin.matrix.copy(tmp.makeTranslation(off.x, off.y, off.z).multiply(p.base))
         p.twin.matrixWorld.copy(p.twin.matrix)
         if (twinPart) planes.midLeft.constant = -off.z
       }
