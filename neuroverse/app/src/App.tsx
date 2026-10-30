@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
 import { Stage } from './Stage'
 import { BEATS, STEPS, beatIndexById } from './content'
 import type { LabelDef } from './content'
@@ -53,7 +54,12 @@ function Presentation() {
       if (i >= 0 && i !== ui.get().beat) director.jump(i)
     }
     window.addEventListener('hashchange', onHash)
-    if (DEBUG) Object.assign(window, { __nv: { ui, rig, director, go: (i: number) => director.jump(i) } })
+    if (DEBUG) {
+      Object.assign(window, { __nv: { ui, rig, director, go: (i: number) => director.jump(i) } })
+      // Test harness only: software WebGL takes seconds per frame, and lag smoothing would then
+      // stretch every timeline to minutes. Timelines follow the wall clock instead.
+      gsap.ticker.lagSmoothing(0)
+    }
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
 

@@ -167,7 +167,7 @@ export function Brain() {
       p.outline.matrix.copy(p.main.matrix)
       p.outline.matrixWorld.copy(p.main.matrix)
       const cortexHidden = ui.get().cortex === 'hidden' && rig.shell > 0.5 && CORTEX.has(p.region)
-      p.main.visible = !(hideLeft && p.side === 'left') && !(shell > 0.98 && p.region === 'whitematter') && !cortexHidden
+      p.main.visible = !(hideLeft && p.side === 'left') && !(rig.shell > 0.98 && p.region === 'whitematter') && !cortexHidden
       const twinLift = lift > 0.001
       const twinPart = part > 0.001 && p.side === 'mid'
       p.twin.visible = (twinLift || twinPart) && !(twinPart && hideLeft)

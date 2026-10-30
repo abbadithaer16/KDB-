@@ -4,6 +4,11 @@
  * the "open question" line, any numbers) are deliberately absent.
  */
 
+// Step 4 shows the cortex translucent on desktop and cut away on touch screens (decision C8).
+const CUT_AWAY = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
+const CORTEX_VIEW = CUT_AWAY ? 'outer cortex cut away' : 'cortex shown translucent'
+const CORTEX_LEGEND = CUT_AWAY ? 'cut-away cortex' : 'translucent cortex'
+
 export type LabelDef = {
   /** Anchor key, resolved by the world that owns the beat. */
   key: string
@@ -169,7 +174,7 @@ export const STEPS: StepDef[] = [
         id: 'memory',
         // F4.1, F4.2
         statement: 'Forming new long-term memories depends on the hippocampus and nearby structures in the temporal lobe. The memories themselves are stored across the cortex.',
-        caption: 'Seen from below left · cortex shown translucent (simplified)',
+        caption: `Seen from below left · ${CORTEX_VIEW} (simplified)`,
         explore: true,
         labels: [
           { key: 'hippocampus', name: 'Hippocampus', role: 'Needed to form new long-term memories', regions: ['hippocampus'] },
@@ -179,7 +184,7 @@ export const STEPS: StepDef[] = [
           { key: 'frontal', name: 'Frontal lobe', role: 'Includes prefrontal cortex: working memory', regions: ['frontal'] },
         ],
         recorded: 'positions of deep structures (BodyParts3D).',
-        illustrative: 'translucent cortex; highlight colour.',
+        illustrative: `${CORTEX_LEGEND}; highlight colour.`,
       },
       {
         id: 'memory-emotion',
@@ -195,7 +200,7 @@ export const STEPS: StepDef[] = [
           { key: 'frontal', name: 'Frontal lobe', regions: ['frontal'] },
         ],
         recorded: 'positions of deep structures (BodyParts3D).',
-        illustrative: 'translucent cortex; highlight colour.',
+        illustrative: `${CORTEX_LEGEND}; highlight colour.`,
       },
     ],
   },
