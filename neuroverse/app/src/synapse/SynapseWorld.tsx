@@ -79,7 +79,7 @@ function membrane(color: string, inside: string) {
   // Inside the compartment: darker towards the bottom of the view, never pure black.
   outgoingLight = uInside * (0.75 + 0.35 * clamp(vSynWorld.y + 0.6, 0.0, 1.0));
 }
-float synRim = 1.0 - smoothstep(0.004, 0.012, dot(uCut, vSynWorld));
+float synRim = 1.0 - smoothstep(0.012, 0.03, dot(uCut, vSynWorld));
 outgoingLight = mix(outgoingLight, vec3(0.86, 0.83, 0.88), synRim);
 #include <opaque_fragment>`,
       )
@@ -207,7 +207,7 @@ export function SynapseWorld() {
     const fov = 30
     const halfH = Math.tan(MathUtils.degToRad(fov / 2))
     const subjectH = 1.9 // from the spine neck to the axon above the bouton
-    const dist = ((subjectH / 2) / (halfH * (portrait ? 0.5 : 0.86))) * push * (portrait ? Math.max(1, 0.62 / aspect) : 1)
+    const dist = ((subjectH / 2) / (halfH * (portrait ? 0.46 : 0.68))) * push * (portrait ? Math.max(1, 0.62 / aspect) : 1)
     if (!ui.get().explore) {
       const target = new Vector3(0, portrait ? -0.25 : 0.12, 0)
       if (!portrait) target.addScaledVector(SIDE, -dist * halfH * aspect * 0.36)
