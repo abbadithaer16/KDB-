@@ -19,7 +19,7 @@ const WHITE = new Set(['whitematter', 'callosum', 'fornix'])
 
 /** Horizontal cut for the scene 1 lift: 64% of brain height from the bottom. */
 const CUT_Y = -0.87 + 0.64 * BRAIN.h
-const LIFT = 0.18 * BRAIN.h
+const LIFT = 0.3 * BRAIN.h // enough clearance to read the whole cut face from 38° above
 /** Scene 2: the left hemisphere moves anterior (screen left in the lateral view) and outwards. */
 const PART = new Vector3(-3.0, 0.15, 1.4)
 

@@ -146,7 +146,7 @@ export const STEPS: StepDef[] = [
         id: 'signal-synapse',
         // F3.4
         statement: 'At the synapse the signal becomes chemical. Calcium enters the terminal, vesicles release neurotransmitter, and it crosses the gap to bind receptors on the next cell.',
-        caption: 'A typical chemical synapse',
+        caption: 'A typical chemical synapse, cut open',
         labels: [
           { key: 'terminal', name: 'Axon terminal' },
           { key: 'vesicles', name: 'Vesicles', role: 'Hold neurotransmitter' },
@@ -155,7 +155,7 @@ export const STEPS: StepDef[] = [
           { key: 'receptors', name: 'Receptors', role: 'On the next cell' },
         ],
         recorded: 'nothing: this synapse is a model, not this neuron’s terminal.',
-        illustrative: 'simplified and not to scale; colours and timing.',
+        illustrative: 'simplified and not to scale; cut open to show the inside; colours and timing.',
       },
     ],
   },
@@ -177,13 +177,13 @@ export const STEPS: StepDef[] = [
           { key: 'frontal', name: 'Frontal lobe', role: 'Includes prefrontal cortex: working memory', regions: ['frontal'] },
         ],
         recorded: 'positions of deep structures (BodyParts3D).',
-        illustrative: 'translucent cortex; highlight colour. Only the fornix, a real fibre tract, is drawn as a connection.',
+        illustrative: 'translucent cortex; highlight colour.',
       },
       {
         id: 'memory-emotion',
         // F4.5, F4.6
         statement: 'With the nearby cortex, the hippocampus and amygdala are involved in both memory and emotional responses. They work as part of a network, not as single centres.',
-        caption: 'Highlighted structures work together; connections other than the fornix are not drawn',
+        caption: 'Highlighted structures work together; the connections between them are not drawn',
         explore: true,
         labels: [
           { key: 'amygdala', name: 'Amygdala', regions: ['amygdala'] },

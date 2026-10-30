@@ -142,24 +142,53 @@ function Explore() {
 }
 
 /** Projects the current beat's anchors to the screen and writes positions to the DOM labels. */
+type Placed = { el: HTMLElement; x: number; y: number; flip: boolean; h: number }
+/** Text block heights, read once per beat and element (layout reads every frame would thrash). */
+const heights = new WeakMap<HTMLElement, { id: string; h: number }>()
+function textHeight(el: HTMLElement, id: string) {
+  const c = heights.get(el)
+  if (c && c.id === id && c.h > 0) return c.h
+  const h = (el.querySelector('span') as HTMLElement | null)?.offsetHeight ?? 0
+  heights.set(el, { id, h })
+  return h || 40
+}
+
 function LabelProjector() {
   const { camera, size } = useThree()
   const v = useMemo(() => new Vector3(), [])
   useFrame(() => {
     const id = BEATS[ui.get().beat].beat.id
     const narrow = size.width < 760
+    const placed: Placed[] = []
     for (const [key, el] of Object.entries(labelEls)) {
       if (!el) continue
       const a = anchors[`${id}:${key}`]
       if (!a) { el.style.visibility = 'hidden'; continue }
-      v.copy(a)
-      // Anchors on the left hemisphere follow it when it moves (scene 2).
-      v.project(camera)
+      v.copy(a).project(camera)
       const x = (v.x * 0.5 + 0.5) * size.width
       const y = (-v.y * 0.5 + 0.5) * size.height
       el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`
-      el.dataset.flip = x > size.width * (narrow ? 0.4 : 0.7) ? '1' : '0'
+      const flip = x > size.width * (narrow ? 0.4 : 0.7)
+      el.dataset.flip = flip ? '1' : '0'
       el.style.visibility = v.z > 1 ? 'hidden' : ''
+      placed.push({ el, x, y, flip, h: textHeight(el, id) })
+    }
+    // Text blocks on the same side that would overlap are pushed apart top to bottom; each
+    // leader then bends from its dot to the moved text. The dots themselves never move.
+    placed.sort((p, q) => p.y - q.y)
+    const done: (Placed & { ty: number })[] = []
+    for (const p of placed) {
+      let ty = p.y
+      for (const q of done) {
+        if (q.flip !== p.flip || Math.abs(q.x - p.x) > 260) continue
+        ty = Math.max(ty, q.ty + q.h + 6)
+      }
+      done.push({ ...p, ty })
+      const dy = ty - p.y
+      const ex = p.flip ? -36 : 36
+      p.el.style.setProperty('--dy', `${dy.toFixed(1)}px`)
+      p.el.style.setProperty('--ang', `${Math.atan2(dy, ex).toFixed(4)}rad`)
+      p.el.style.setProperty('--len', `${(Math.hypot(ex, dy) - 8).toFixed(1)}px`)
     }
     // Scene 5 threads: from each margin annotation to its anchor.
     for (const [key, t] of Object.entries(threadEls)) {

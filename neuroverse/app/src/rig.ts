@@ -103,7 +103,7 @@ export function brainPose(name: PoseName, aspect: number, out: Pose = makePose()
     case 'built':
       return P({ az: -40, el: 18, fov: 26, cx: 0.63, cy: 0.52, frac: 0.6 }, { cx: 0.5, cy: 0.47, frac: 0.3 })
     case 'lifted':
-      return P({ az: -40, el: 22, fov: 26, cx: 0.63, cy: 0.5, frac: 0.52, centre: new Vector3(BRAIN.cx, BRAIN.cy + 0.16, 0) }, { cx: 0.5, cy: 0.45, frac: 0.28 })
+      return P({ az: -34, el: 38, fov: 26, cx: 0.63, cy: 0.52, frac: 0.5, h: BRAIN.h * 1.3, centre: new Vector3(BRAIN.cx, BRAIN.cy + 0.22, 0) }, { cx: 0.5, cy: 0.45, frac: 0.26 })
     case 'lateral':
       return P({ az: 0, el: -3, fov: 26, cx: 0.55, cy: 0.56, frac: 0.6 }, { cx: 0.5, cy: 0.46, frac: 0.3 })
     case 'parting':

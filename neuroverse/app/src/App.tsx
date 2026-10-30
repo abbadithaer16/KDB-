@@ -117,7 +117,7 @@ function Presentation() {
           {b.labels.map((l) => <Annotation key={`${b.id}-${l.key}`} label={l} selected={selected} />)}
         </div>
       )}
-      {isMind && <Threads labels={b.labels} visible={showLabels || transitioning} />}
+      {isMind && <Threads part="lines" labels={b.labels} visible={showLabels || transitioning} />}
 
       <header className="masthead">
         <p className="wordmark">Neuroverse</p>
@@ -133,6 +133,7 @@ function Presentation() {
       </nav>
 
       <div className="dock">
+        {isMind && <Threads part="list" labels={b.labels} visible={showLabels || transitioning} />}
         {b.caption && <p className="caption">{b.caption}</p>}
         <dl className="legend">
           <div><dt>Recorded</dt><dd>{b.recorded}</dd></div>
@@ -216,6 +217,7 @@ function Annotation({ label, selected }: { label: LabelDef; selected: string | n
   return (
     <div className={`tag3d ${on ? 'is-on' : ''} ${off ? 'is-off' : ''}`} ref={(el) => { labelEls[label.key] = el }} aria-hidden="true">
       <i />
+      <em />
       {label.regions ? (
         <span>
           <button tabIndex={-1} onClick={() => ui.set({ selected: on ? null : label.key })}>{inner}</button>
@@ -225,9 +227,9 @@ function Annotation({ label, selected }: { label: LabelDef; selected: string | n
   )
 }
 
-function Threads({ labels, visible }: { labels: LabelDef[]; visible: boolean }) {
-  return (
-    <>
+/** Scene 5: the synthesis list sits at the head of the dock; its threads are drawn over the stage. */
+function Threads({ part, labels, visible }: { part: 'lines' | 'list'; labels: LabelDef[]; visible: boolean }) {
+  if (part === 'lines') return (
       <svg className={`threads ${visible ? '' : 'is-hidden'}`} aria-hidden="true">
         {labels.map((l) => (
           <g key={l.key}>
@@ -236,6 +238,8 @@ function Threads({ labels, visible }: { labels: LabelDef[]; visible: boolean }) 
           </g>
         ))}
       </svg>
+  )
+  return (
       <ol className={`synthesis ${visible ? '' : 'is-hidden'}`}>
         {labels.map((l) => (
           <li key={l.key} ref={(el) => { threadEls[l.key] = { ...(threadEls[l.key] ?? { line: null, dot: null }), label: el } }}>
@@ -244,6 +248,5 @@ function Threads({ labels, visible }: { labels: LabelDef[]; visible: boolean }) 
           </li>
         ))}
       </ol>
-    </>
   )
 }
