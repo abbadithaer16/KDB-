@@ -1,3 +1,4 @@
+import { fetchBinary } from '../data'
 import { useEffect, useMemo, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { DataTexture, DoubleSide, LinearFilter, MeshBasicMaterial, PlaneGeometry, RGBAFormat, Vector3 } from 'three'
@@ -17,7 +18,7 @@ export function Section() {
   const [data, setData] = useState<{ meta: Meta; tex: DataTexture } | null>(null)
   useEffect(() => {
     let alive = true
-    Promise.all([fetch(`${BASE}data/section.json`).then((r) => r.json()), fetch(`${BASE}data/section.bin`).then((r) => r.arrayBuffer())])
+    Promise.all([fetch(`${BASE}data/section.json`).then((r) => r.json()), fetchBinary('data/section.bin')])
       .then(([meta, buf]: [Meta, ArrayBuffer]) => {
         if (!alive) return
         const cls = new Uint8Array(buf)

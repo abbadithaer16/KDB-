@@ -1,3 +1,4 @@
+import { fetchBinary } from '../data'
 import { useEffect, useMemo, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { CatmullRomCurve3, Color, Vector3 } from 'three'
@@ -20,7 +21,7 @@ export function Contours() {
   const [data, setData] = useState<{ geo: LineSegmentsGeometry; cumulative: number[] } | null>(null)
   useEffect(() => {
     let alive = true
-    Promise.all([fetch(`${BASE}data/contours.json`).then((r) => r.json()), fetch(`${BASE}data/contours.bin`).then((r) => r.arrayBuffer())])
+    Promise.all([fetch(`${BASE}data/contours.json`).then((r) => r.json()), fetchBinary('data/contours.bin')])
       .then(([meta, buf]: [{ scale: number; planes: Plane[] }, ArrayBuffer]) => {
         if (!alive) return
         const raw = new Int16Array(buf)

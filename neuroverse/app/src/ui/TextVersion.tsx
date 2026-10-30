@@ -1,3 +1,4 @@
+import { fetchBinary } from '../data'
 import { useEffect, useState } from 'react'
 import { STEPS } from '../content'
 import { ui, useUI } from '../state'
@@ -8,7 +9,7 @@ const BASE = import.meta.env.BASE_URL
 function ContourFigure() {
   const [d, setD] = useState<string | null>(null)
   useEffect(() => {
-    Promise.all([fetch(`${BASE}data/contours.json`).then((r) => r.json()), fetch(`${BASE}data/contours.bin`).then((r) => r.arrayBuffer())])
+    Promise.all([fetch(`${BASE}data/contours.json`).then((r) => r.json()), fetchBinary('data/contours.bin')])
       .then(([meta, buf]: [{ scale: number; planes: { start: number; count: number }[] }, ArrayBuffer]) => {
         const raw = new Int16Array(buf)
         const parts: string[] = []

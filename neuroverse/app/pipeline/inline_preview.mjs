@@ -2,7 +2,7 @@
 // they are inline, so the built index.html gets its module script, stylesheet and fonts inlined.
 // Data files stay separate and are published next to the page.
 // Usage: VITE_MODEL_B64=1 npx vite build --outDir <dir> && node pipeline/inline_preview.mjs <dir> <out.html>
-import { readFileSync, writeFileSync } from 'node:fs'
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const [dir, output] = process.argv.slice(2)
@@ -30,4 +30,8 @@ html = html
   .trim()
 if (/src="\.\/assets|href="\.\/assets/.test(html)) throw new Error('an asset reference was left un-inlined')
 writeFileSync(output, html)
+// That host serves no .bin either: the preview build reads data/<name>.bin.b64.txt instead (src/data.ts).
+for (const f of readdirSync(join(dir, 'data'))) {
+  if (f.endsWith('.bin')) writeFileSync(join(dir, 'data', `${f}.b64.txt`), read(join('data', f)).toString('base64'))
+}
 console.log('inlined page bytes', Buffer.byteLength(html))
