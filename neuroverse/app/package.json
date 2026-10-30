@@ -1,0 +1,36 @@
+{
+  "name": "neuroverse",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "data": "python3 -I pipeline/prepare_neuron.py public/data/neuron.json && node pipeline/build_brain_data.mjs public/models/brain.glb public/data && node pipeline/build_section.mjs public/models/brain.glb public/data 0.1924",
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --noEmit",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/atkinson-hyperlegible-next": "5.3.0",
+    "@fontsource-variable/newsreader": "5.3.0",
+    "@react-three/drei": "10.7.9",
+    "@react-three/fiber": "9.8.1",
+    "@react-three/postprocessing": "3.2.2",
+    "gsap": "3.15.0",
+    "postprocessing": "6.39.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "4.5.1",
+    "@gltf-transform/extensions": "4.5.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/three": "0.186.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "meshoptimizer": "1.3.0",
+    "typescript": "6.0.3",
+    "vite": "8.3.4"
+  }
+}
