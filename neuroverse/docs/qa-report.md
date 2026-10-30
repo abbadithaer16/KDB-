@@ -38,9 +38,12 @@ text version doubles as the non-WebGL fallback.
   halo for contrast over tissue; synapse labels have fixed sides.
 - Step 5: the synthesis list moved into the dock (it overlapped the caption); threads start at the
   end of each line of text and no longer cross.
-- Phones: stronger top scrim; synapse framed between the statement and the dock; the step 4
-  cut-away dims context less and hides the white-matter volume so the deep structures show; step
-  4 copy says "cut away" on phones instead of "translucent".
+- Phones: stronger top scrim; synapse framed between the statement and the dock; step 4 dims
+  context less, and its copy describes the phone view instead of "translucent".
+- Phones, step 4: once the cut-away wipe has passed, the near hemisphere's cortex, white matter and
+  cerebellum half are removed whole (planar cuts through the solid lobe volumes left flat caps over
+  the deep structures); the caption says so.
+- Touch: horizontal swipes no longer risk being cancelled as a pan.
 - Copy: "the fornix, a real fibre tract" removed (not found in the sources read; F4.9).
 
 ## Checklist
@@ -53,8 +56,14 @@ text version doubles as the non-WebGL fallback.
 | Screenshot sweep 1280×720, all 11 beats | Done; defects above fixed and re-shot | Checked |
 | Screenshot sweep 390×844 (phone), all 11 beats | Done; phone defects above fixed and re-shot | Checked |
 | 1440×900 and 1280×800 sweeps | Not run: software WebGL takes minutes per frame at these sizes; composition was checked at 1280×720 | Not run |
-| Reduced motion | Covered by the interaction suite (forward moves are cuts) | see below |
-| Interaction suite (keyboard map, clicker keys, interrupt, rapid presses, deep links, selection, Explore, dialogs, text version, swipe) | RESULTS PENDING | Checked |
+| Keyboard and clicker keys (→, PageDown, PageUp, Home, End, E, R, Esc, ?) | Pass: next, previous, first, last, Explore on/off, reset, help | Checked |
+| Interrupt and rapid presses | Pass: a press mid-transition lands on the target at once; six rapid presses end one beat on, nothing queues | Checked |
+| Deep links | Pass: `#architecture` via hash change lands on step 2 at rest | Checked |
+| Selection by keyboard route (label list) and Esc | Pass | Checked |
+| Dialogs (Keys, Sources and changes) | Pass: open, Esc closes, focus returns to the control that opened them | Checked |
+| Text version and back | Pass: five sections; returns to the 3D presentation | Checked |
+| Touch swipe | **Bug found and fixed**: horizontal drags could be taken by the browser as a pan (pointer cancelled), as on iOS Safari; the stage is now `touch-action: pan-y pinch-zoom`. Swipe logic passes with in-page pointer events (left = next, right = previous, a short drag = nothing). Real touch timing in the harness could not be tested: software WebGL delivers the end of a touch 16 s after its start | Checked (logic); Not run (real touch) |
+| Reduced motion | Pass: a forward move is a cut (2.6 s in the harness, all of it frame time) | Checked |
 | Fullscreen enter/exit | Not run in the harness (headless Chromium has no real fullscreen) | Not run |
 | Safari / iOS | Not run on this build. The earlier Scene 2 proof was checked on a real iPhone; this build is not | Not run |
 | Frame rate (desktop 60 fps, phone ≥ 50 fps) | No real-device measurement | Not run |
