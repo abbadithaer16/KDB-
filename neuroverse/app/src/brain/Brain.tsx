@@ -167,7 +167,11 @@ export function Brain() {
       p.outline.matrix.copy(p.main.matrix)
       p.outline.matrixWorld.copy(p.main.matrix)
       const cortexHidden = ui.get().cortex === 'hidden' && rig.shell > 0.5 && CORTEX.has(p.region)
-      p.main.visible = !(hideLeft && p.side === 'left') && !(rig.shell > 0.98 && p.region === 'whitematter') && !cortexHidden
+      // Phones: the cut-away plane wipes across the near hemisphere; once it has passed, that
+      // hemisphere's cortex and white matter are removed whole, so no solid-volume caps hide the
+      // deep structures (the far hemisphere stays as context).
+      const nearRemoved = CUTAWAY && rig.shell > 0.98 && p.side === 'left' && CORTEX.has(p.region) && p.region !== 'cerebellum'
+      p.main.visible = !(hideLeft && p.side === 'left') && !(rig.shell > 0.98 && p.region === 'whitematter') && !cortexHidden && !nearRemoved
       const twinLift = lift > 0.001
       const twinPart = part > 0.001 && p.side === 'mid'
       p.twin.visible = (twinLift || twinPart) && !(twinPart && hideLeft)

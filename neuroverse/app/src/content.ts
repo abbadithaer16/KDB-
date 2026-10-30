@@ -6,8 +6,8 @@
 
 // Step 4 shows the cortex translucent on desktop and cut away on touch screens (decision C8).
 const CUT_AWAY = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
-const CORTEX_VIEW = CUT_AWAY ? 'outer cortex cut away' : 'cortex shown translucent'
-const CORTEX_LEGEND = CUT_AWAY ? 'cut-away cortex' : 'translucent cortex'
+const CORTEX_VIEW = CUT_AWAY ? 'near hemisphere’s outer cortex removed' : 'cortex shown translucent'
+const CORTEX_LEGEND = CUT_AWAY ? 'near cortex removed' : 'translucent cortex'
 
 export type LabelDef = {
   /** Anchor key, resolved by the world that owns the beat. */
