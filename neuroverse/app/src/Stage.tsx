@@ -158,7 +158,8 @@ function LabelProjector() {
   const { camera, size } = useThree()
   const v = useMemo(() => new Vector3(), [])
   useFrame(() => {
-    const id = BEATS[ui.get().beat].beat.id
+    const beatDef = BEATS[ui.get().beat].beat
+    const id = beatDef.id
     const narrow = size.width < 760
     const placed: Placed[] = []
     for (const [key, el] of Object.entries(labelEls)) {
@@ -169,7 +170,8 @@ function LabelProjector() {
       const x = (v.x * 0.5 + 0.5) * size.width
       const y = (-v.y * 0.5 + 0.5) * size.height
       el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`
-      const flip = x > size.width * (narrow ? 0.4 : 0.7)
+      const side = beatDef.labels.find((l) => l.key === key)?.side
+      const flip = side ? side === 'left' : x > size.width * (narrow ? 0.4 : 0.7)
       el.dataset.flip = flip ? '1' : '0'
       el.style.visibility = v.z > 1 ? 'hidden' : ''
       const box = textBox(el, id)

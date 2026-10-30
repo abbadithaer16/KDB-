@@ -11,6 +11,8 @@ export type LabelDef = {
   role?: string
   /** Brain regions this label selects (brain beats only). */
   regions?: string[]
+  /** Which side of its dot the text sits on; by default it follows the dot's screen position. */
+  side?: 'left' | 'right'
 }
 
 export type BeatDef = {
@@ -148,11 +150,11 @@ export const STEPS: StepDef[] = [
         statement: 'At the synapse the signal becomes chemical. Calcium enters the terminal, vesicles release neurotransmitter, and it crosses the gap to bind receptors on the next cell.',
         caption: 'A typical chemical synapse, cut open',
         labels: [
-          { key: 'terminal', name: 'Axon terminal' },
-          { key: 'vesicles', name: 'Vesicles', role: 'Hold neurotransmitter' },
-          { key: 'transmitter', name: 'Neurotransmitter' },
-          { key: 'cleft', name: 'Synaptic cleft' },
-          { key: 'receptors', name: 'Receptors', role: 'On the next cell' },
+          { key: 'terminal', name: 'Axon terminal', side: 'right' },
+          { key: 'vesicles', name: 'Vesicles', role: 'Hold neurotransmitter', side: 'right' },
+          { key: 'transmitter', name: 'Neurotransmitter', side: 'left' },
+          { key: 'cleft', name: 'Synaptic cleft', side: 'right' },
+          { key: 'receptors', name: 'Receptors', role: 'On the next cell', side: 'right' },
         ],
         recorded: 'nothing: this synapse is a model, not this neuron’s terminal.',
         illustrative: 'simplified and not to scale; cut open to show the inside; colours and timing.',
