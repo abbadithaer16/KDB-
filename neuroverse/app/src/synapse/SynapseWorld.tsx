@@ -207,9 +207,10 @@ export function SynapseWorld() {
     const fov = 30
     const halfH = Math.tan(MathUtils.degToRad(fov / 2))
     const subjectH = 1.9 // from the spine neck to the axon above the bouton
-    const dist = ((subjectH / 2) / (halfH * (portrait ? 0.46 : 0.68))) * push * (portrait ? Math.max(1, 0.62 / aspect) : 1)
+    const dist = ((subjectH / 2) / (halfH * (portrait ? 0.34 : 0.68))) * push * (portrait ? Math.max(1, 0.62 / aspect) : 1)
     if (!ui.get().explore) {
-      const target = new Vector3(0, portrait ? -0.25 : 0.12, 0)
+      // Portrait: the subject sits in the band between the statement and the dock (about 43% down).
+      const target = new Vector3(0, portrait ? 0.12 - 0.07 * 2 * dist * halfH : 0.12, 0)
       if (!portrait) target.addScaledVector(SIDE, -dist * halfH * aspect * 0.36)
       const el = MathUtils.degToRad(9)
       cam.position.copy(target).addScaledVector(VIEW, dist * Math.cos(el)).setY(target.y + dist * Math.sin(el))

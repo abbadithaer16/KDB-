@@ -41,7 +41,10 @@ type Part = {
   cap: Color
 }
 
-const tint = (c: Color, on: boolean, any: boolean) => (!any ? c.clone() : on ? c.clone().lerp(new Color(TOKENS.violet), 0.45) : c.clone().lerp(new Color(TOKENS.dimmed), 0.8))
+// On phones the cortex is cut away rather than made translucent, so the context it exposes is dimmed
+// less: its cut faces have to stay readable around the highlighted structures.
+const DIM = CUTAWAY ? 0.42 : 0.8
+const tint = (c: Color, on: boolean, any: boolean) => (!any ? c.clone() : on ? c.clone().lerp(new Color(TOKENS.violet), 0.45) : c.clone().lerp(new Color(TOKENS.dimmed), DIM))
 
 export function Brain() {
   const gltf = useBrainModel()
